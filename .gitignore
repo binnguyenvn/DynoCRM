@@ -286,3 +286,5 @@ env
 
 tools
 
+my.crt
+my.key

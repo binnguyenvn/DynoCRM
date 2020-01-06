@@ -129,46 +129,41 @@ def field_line(field, module):
         Return string with their option
         TODO: Need to clean NULL option
     """
-
+    _default = ''
+    if field.default is not None:
+        _default = F'default={field.default}, '
     if field.type in RELATION_TYPE:
         return F'{field.name} = {field.type}(\
             "{module}.{field.fkmodule}",\
             related_name="%(app_label)s_%(class)s_{field.name}",\
-            on_delete={field.on_delete},\
-            default={field.default},\
             verbose_name="{field.verbose_name}",\
-            null=True, blank=True)'
+            {_default}null=True, blank=True)'
     if field.type in STRING_TYPE:
         if field.option is None:
             return F'{field.name} = {field.type}(\
                 max_length={field.max_length},\
-                default={field.default},\
                 verbose_name="{field.verbose_name}",\
-                null=True, blank=True)'
+                {_default}null=True, blank=True)'
         return F'{field.name} = ForeignKey(\
             "choices.ChoiceDetail",\
             related_name="%(app_label)s_%(class)s_{field.name}",\
             on_delete=DO_NOTHING,\
-            default={field.default},\
             verbose_name="{field.verbose_name}",\
-            null=True, blank=True)'
+            {_default}null=True, blank=True)'
     if field.type in BOOL_TYPE:
         return F'{field.name} = {field.type}(\
-            default={field.default},\
             verbose_name="{field.verbose_name}",\
-            blank=True)'
+            {_default}blank=True)'
     if field.type in TIME_TYPE:
         return F'{field.name} = {field.type}(\
             auto_now=True,\
             auto_now_add=True,\
-            default={field.default},\
             verbose_name="{field.verbose_name}",\
-            null=True, blank=True)'
+            {_default}null=True, blank=True)'
     if field.type in NUMBER_TYPE:
         return F'{field.name} = {field.type}(\
-            default={field.default},\
             verbose_name="{field.verbose_name}",\
-            null=True, blank=True)'
+            {_default}null=True, blank=True)'
     if field.type in FILE_TYPE:
         return F'{field.name} = {field.type}(\
             upload_to="uploads/%Y/%m/%d/",\
