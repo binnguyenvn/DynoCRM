@@ -1,18 +1,21 @@
 """
     Choice API
 """
-from django.http import Http404, HttpResponse, JsonResponse
+from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404
-from rest_framework import request, status
+from rest_framework.decorators import action
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from url_filter.integrations.drf import DjangoFilterBackend
 
 from risocrm.bases.responses import (Response_200, Response_201, Response_400,
-                                     Response_404, Response_503)
+                                     Response_404)
 from risocrm.choices.models import Choice
-from risocrm.choices.serializers import ChoiceDepthSerializer, ChoiceSerializer
+from risocrm.choices.serializers import (ChoiceDepthNestedSerializer,
+                                         ChoiceDepthSerializer,
+                                         ChoiceNestedSerializer,
+                                         ChoiceSerializer)
 
 
 class ChoiceViewSet(ModelViewSet):
@@ -44,6 +47,15 @@ class ChoiceViewSet(ModelViewSet):
             return Response_400(data=serializer.errors)
         obj = serializer.save(creator=request.user)
         serializer = ChoiceDepthSerializer(obj)
+        return Response_201(data=serializer.data)
+
+    @action(detail=False, methods=['post'])
+    def create_nested(self, request, *args, **kwargs):
+        serializer = ChoiceNestedSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response_400(data=serializer.errors)
+        obj = serializer.save(creator=request.user)
+        serializer = ChoiceDepthNestedSerializer(obj)
         return Response_201(data=serializer.data)
 
     def update(self, request, *args, **kwargs):

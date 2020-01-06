@@ -13,6 +13,7 @@ app_name = 'choices'
 router = SimpleRouter(trailing_slash=False)
 router.register(r"", ChoiceViewSet)
 
+
 fake_api = [
     path("", include(router.urls)),
     path('choice_childs/<str:pk>', choice_childs, name="choice_childs"),

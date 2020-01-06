@@ -38,6 +38,13 @@ class BaseSerializer(ModelSerializer):
             for field_name in existing - allowed:
                 self.fields.pop(field_name)
 
+    def get_field_names(self, declared_fields, info):
+        expanded_fields = super(BaseSerializer, self).get_field_names(declared_fields, info)
+        if getattr(self.Meta, 'extra_fields', None):
+            return expanded_fields + self.Meta.extra_fields
+        else:
+            return expanded_fields
+
 
 class Base64ImageField(CharField):
     """

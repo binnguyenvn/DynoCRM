@@ -110,7 +110,8 @@ def edit(request, pk):
         form.fields['group'].widget.choices = [('', '----------')] + get_group_distinct_tuple()
         form.fields['module'].widget.choices = [('', '----------')] + module_name_tuple()
         form.fields['fkmodule'].widget.choices = [('', '----------')] + module_name_full_tuple()
-        form.fields['default'].widget.choices = [('', '----------')] + [(m.id, m.value) for m in obj.option.choices_detail.all()]
+        if obj.option:
+            form.fields['default'].widget.choices = [('', '----------')] + [(m.id, m.value) for m in obj.option.choices_detail.all()]
         context['form'] = form
         return render(request, 'app_mgmt-edit.html', context)
     else:
@@ -118,7 +119,8 @@ def edit(request, pk):
         form.fields['group'].widget.choices = [('', '----------')] + get_group_distinct_tuple()
         form.fields['module'].widget.choices = [('', '----------')] + module_name_full_tuple()
         form.fields['fkmodule'].widget.choices = [('', '----------')] + module_name_full_tuple()
-        form.fields['default'].widget.choices = [('', '----------')] + [(m.id, m.value) for m in obj.option.choices_detail.all()]
+        if obj.option:
+            form.fields['default'].widget.choices = [('', '----------')] + [(m.id, m.value) for m in obj.option.choices_detail.all()]
         if not form.is_valid():
             context['form'] = form
             return render(request, 'app_mgmt-edit.html', context)
