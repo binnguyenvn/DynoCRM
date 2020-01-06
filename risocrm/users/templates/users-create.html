@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %} {% endblock css %}
+{% block pagecss %}
+<link href="{% static 'plugins/custom/datatables/datatables.bundle.css' %}" rel="stylesheet" type="text/css" /> {% endblock pagecss %} {% block toolbar %} {% endblock toolbar %} {% block content %}
+<div class="kt-portlet kt-portlet--mobile">
+<form action="{{request.path}}" method="post" class="validated">
+     {% csrf_token %}
+    <div class="kt-portlet__head kt-portlet__head--lg">
+        <div class="kt-portlet__head-label">
+            <span class="kt-portlet__head-icon">
+                <i class="kt-font-brand flaticon2-line-chart"></i>
+            </span>
+            <h3 class="kt-portlet__head-title">
+                {{table_title}}
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-wrapper">
+                <div class="kt-portlet__head-actions">
+                    &nbsp;
+                    <button type="submit" class="btn btn-brand btn-elevate btn-icon-sm">
+                        <i class="la la-plus"></i> Save & edit
+                    </button>
+                    &nbsp;
+                    <a href="{{go_back_url}}" class="btn btn-danger btn-elevate btn-icon-sm" style="color: white;">
+                        <i class="la la-trash"></i> Cancel
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+
+        <!--begin: Datatable -->
+        <div id="kt_table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="kt-form kt-form--label-right">
+                <div class="kt-portlet__body">
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label class="">Username:</label>
+                            {{form.username}}
+                            {% for item in form.username.errors %}
+                            <div class="invalid-feedback">{{item}}</div>
+                            {% endfor %}
+                            <span class="form-text text-muted">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</span>
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="">Full name:</label>
+                            {{form.first_name}}
+                            {% for item in form.first_name.errors %}
+                            <div class="invalid-feedback">{{item}}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="">Email:</label>
+                            {{form.email}}
+                            {% for item in form.email.errors %}
+                            <div class="invalid-feedback">{{item}}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label class="">Group:</label>
+                            <select name="groups" id="id_groups" class="form-control">
+                                <option value="">---------</option>
+                                <option value="1">Administrator</option>
+                                <option value="2">Manager</option>
+                                <option value="3">Leader</option>
+                                <option value="4">Sale</option>
+                            </select>
+                            {% for item in form.groups.errors %}
+                                <div class="invalid-feedback">{{item}}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="">Password:</label>
+                            {{form.password1}}
+                            {% for item in form.password1.errors %}
+                            <div class="invalid-feedback">{{item}}</div>
+                            {% endfor %}
+                            <span class="form-text text-muted">Your password can't be too similar to your other personal information.</span>
+                            <span class="form-text text-muted">Your password must contain at least 8 characters.</span>
+                            <span class="form-text text-muted">Your password can't be a commonly used password.</span>
+                            <span class="form-text text-muted">Your password can't be entirely numeric.</span>
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="">Password confirmation:</label>
+                            {{form.password2}}
+                            {% for item in form.password2.errors %}
+                            <div class="invalid-feedback">{{item}}</div>
+                            {% endfor %}
+                            <span class="form-text text-muted">Enter the same password as before, for verification.</span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+        <!--end: Datatable -->
+    </div>
+
+</form>
+</div>
+<!--begin::Modal-->
+
+{% endblock content %} {% block javascript %}
+{% comment %} <script type="text/javascript" src="{% static 'plugins/custom/datatables/datatables.bundle.js' %}"></script> {% endcomment %}
+<script type="text/javascript" src="{% static 'js/riso/dynamic-formset.js' %}"></script>
+{% endblock javascript %} {% block pagescript %}
+<script>
+  $('#id_groups').select2({
+    placeholder: "Input Group name",
+    tags: true
+  });
+  $('#id_app').select2({
+    placeholder: "Select App",
+  });
+  $('#id_parent').select2({
+    placeholder: "Select parent",
+  });
+</script>
+
+{% endblock pagescript %}

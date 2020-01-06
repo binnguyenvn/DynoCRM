@@ -1,0 +1,17 @@
+"""
+    App Models
+    {{modules[:-1].title()}} model
+"""
+from django.db.models import {{import_fields}}
+
+from risocrm.bases.models import BaseModel
+
+
+class {{modules[:-1].title()}}(BaseModel):
+    """
+        {{modules[:-1].title()}}
+    """
+    {% for field in fields %}
+    {{field}}{% endfor %}
+    def __str__(self):
+        return "{{modules[:-1].title()}}"

@@ -1,0 +1,108 @@
+{% extends "account/base.html" %} {% load i18n %} {% load account socialaccount %} {% block head_title %}Sign In{% endblock %} {% block inner %}
+
+<!--begin::Head-->
+<div class="kt-login__head">
+    <span class="kt-login__signup-label">Don't have an account yet?</span>&nbsp;&nbsp;
+    <a href="{{ signup_url }}" class="kt-link kt-login__signup-link">Sign Up!</a>
+</div>
+
+<!--end::Head-->
+
+<!--begin::Body-->
+<div class="kt-login__body">
+
+    <!--begin::Signin-->
+    <div class="kt-login__form">
+        <div class="kt-login__title">
+            <h3>Sign In</h3>
+        </div>
+
+        <!--begin::Form-->
+        <form class="kt-form validated" action="{% url 'account_login' %}" method="POST" novalidate="novalidate" id="kt_login_form">
+        {% csrf_token %}
+            <div class="form-group">
+                <input class="form-control {% if form.login.errors %}is-invalid{% endif %}" type="text" placeholder="Username" name="login" autocomplete="off" autofocus="autofocus" maxlength="150" required="" id="id_login">
+                {% for item in form.login.errors %}
+                <div class="invalid-feedback">{{item}}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <input class="form-control {% if form.password.errors %}is-invalid{% endif %}" type="password" placeholder="Password" name="password" autocomplete="off" required="" id="id_password">
+                {% for item in form.password.errors %}
+                <div class="invalid-feedback">{{item}}</div>
+                {% endfor %}
+            </div>
+            {% if redirect_field_value %}
+            <input type="hidden" id="idnext" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" /> {% endif %}
+            <!--begin::Action-->
+            <div class="kt-login__actions">
+                <a href="{% url 'account_reset_password' %}" class="kt-link kt-login__link-forgot">
+                  Forgot Password ?
+                </a>
+                <button id="kt_login_signin_submit" class="btn btn-primary btn-elevate kt-login__btn-primary">Sign In</button>
+            </div>
+
+            <!--end::Action-->
+        </form>
+
+        <!--end::Form-->
+        {% comment %} {% get_providers as socialaccount_providers %} {% endcomment %}
+        {% comment %} {% if socialaccount_providers %}
+        <!--begin::Divider-->
+        <div class="kt-login__divider">
+            <div class="kt-divider">
+                <span></span>
+                <span>OR</span>
+                <span></span>
+            </div>
+        </div>
+        <!--end::Divider-->
+
+        <!--begin::Options-->
+        {% include "socialaccount/snippets/provider_list.html" with process="login" %} {% include "socialaccount/snippets/login_extra.html" %}
+
+        <!--end::Options-->
+        {% endif %} {% endcomment %}
+    </div>
+
+    <!--end::Signin-->
+</div>
+
+<!--end::Body-->
+{% endblock %} {% block page_script %}
+<script>
+    //// Login
+    var login = $('#kt_login');
+
+    // Private Functions
+    $('#kt_login_signin_submit').click(function(e) {
+        e.preventDefault();
+        var btn = $(this);
+        var form = $('#kt_login_form');
+        form.validate({
+            rules: {
+                username: {
+                    required: true
+                },
+                password: {
+                    required: true
+                }
+            }
+        });
+
+        if (!form.valid()) {
+            return;
+        }
+
+        KTApp.progress(btn[0]);
+
+        setTimeout(function() {
+            KTApp.unprogress(btn[0]);
+        }, 2000);
+
+        $('#kt_login_form').submit();
+    });
+
+    //// End Login
+</script>
+{% endblock page_script %}

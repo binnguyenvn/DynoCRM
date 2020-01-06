@@ -1,0 +1,16 @@
+<li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+    <a href="{{url}}" class="kt-menu__link kt-menu__toggle">
+        <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+            <span></span>
+        </i>
+        <span class="kt-menu__link-text">{{name}}</span>
+        <i class="kt-menu__ver-arrow la la-angle-right"></i>
+    </a>
+    {% if content %}
+    <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
+        <ul class="kt-menu__subnav">
+        {{content}}
+        </ul>
+    </div>
+    {% endif %}
+</li>

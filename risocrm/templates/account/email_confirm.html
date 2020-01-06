@@ -1,0 +1,47 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+{% load account %}
+{% block head_title %}Confirm E-mail Address{% endblock %} 
+{% block inner %}
+
+<!--begin::Body-->
+<div class="kt-login__body">
+
+    <!--begin::Signin-->
+    <div class="kt-login__form">
+        
+        {% if confirmation %}
+        {% user_display confirmation.email_address.user as user_display %}
+        {% with confirmation.email_address.email as email %}
+        <div class="kt-login__title">
+            <h3>Confirm E-mail Address</h3>
+            <h6>Please confirm that <a href="mailto:{{ email }}">{{ email }}</a> 
+                is an e-mail address for user {{ user_display }}.</h6>
+        </div>
+        {% endwith %}
+        <!--begin::Form-->
+        <form class="kt-form" action="{% url 'account_confirm_email' confirmation.key %}" method="POST" novalidate="novalidate" id="kt_login_form">
+        {% csrf_token %}
+
+            <!--begin::Action-->
+            <div class="kt-login__actions d-flex justify-content-center">
+                <button id="kt_login_signin_submit" class="btn btn-primary btn-elevate kt-login__btn-primary">Confirm</button>
+            </div>
+
+            <!--end::Action-->
+        </form>
+        <!--end::Form-->
+        {% else %}
+        {% url 'account_email' as email_url %}
+        <div class="kt-login__title">
+            <h3>Confirm E-mail Address</h3>
+            <h6>This e-mail confirmation link expired or is invalid. Please <a href="{{ email_url }}">issue a new e-mail confirmation request</a>.</h6>
+        </div>
+        {% endif %}
+        
+    </div>
+    <!--end::Signin-->
+</div>
+
+<!--end::Body-->
+{% endblock %}

@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %} {% endblock css %}
+{% block pagecss %}
+{% comment %}
+<link href="{% static 'plugins/custom/datatables/datatables.bundle.css' %}" rel="stylesheet" type="text/css" />
+{% endcomment %}
+{% endblock pagecss %}
+{% block toolbar %}
+
+{% endblock toolbar %} {% block content %}
+<form action="{{request.get_full_path}}" method="post" class="validated">
+	{% csrf_token %}
+	<div class="kt-portlet kt-portlet--mobile">
+		<div class="kt-portlet__head kt-portlet__head--lg">
+			<div class="kt-portlet__head-label">
+				<span class="kt-portlet__head-icon">
+					<i class="kt-font-brand"></i>
+				</span>
+				<h3 class="kt-portlet__head-title">
+					{{table_title}}
+				</h3>
+			</div>
+			<div class="kt-portlet__head-toolbar">
+				<div class="kt-portlet__head-wrapper">
+					<div class="kt-portlet__head-actions">
+						&nbsp;
+                    <button type="submit" class="btn btn-brand btn-elevate btn-icon-sm">
+                        <i class="la la-plus"></i> Save & edit
+                    </button>
+                    &nbsp;
+                    <a href="{{go_back_url}}" class="btn btn-danger btn-elevate btn-icon-sm" style="color: white;">
+                        <i class="la la-trash"></i> Cancel
+                    </a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="kt-portlet__body">
+			<div id="kt_table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="kt-portlet__body">
+							<div class="form-group row">
+								<div class="col-lg-3 d-none">
+									<label>Module:</label>
+									{{form.module}}
+									{% for item in form.module.errors %}
+									<div class="invalid-feedback">{{item}}</div>
+									{% endfor %}
+									<span class="form-text text-muted">Please select module</span>
+								</div>
+								<div class="col-lg-3 ">
+									<label>Group:</label>
+									{{form.group}}
+									{% for item in form.group.errors %}
+									<div class="invalid-feedback">{{item}}</div>
+									{% endfor %}
+									<span class="form-text text-muted">Please select group</span>
+								</div>
+								<div class="col-lg-3">
+									<label>Field Name:</label>
+									{{form.name}}
+									{% for item in form.name.errors %}
+									<div class="invalid-feedback">{{item}}</div>
+									{% endfor %}
+									<span class="form-text text-muted">Please enter field name</span>
+								</div>
+								<div class="col-lg-3">
+									<label class="">Verbose Name:</label>
+									{{form.verbose_name}}
+									{% for item in form.verbose_name.errors %}
+									<div class="invalid-feedback">{{item}}</div>
+									{% endfor %}
+									<span class="form-text text-muted">Please enter field verbose name</span>
+								</div>
+								<div class="col-lg-3" data-input-type>
+									<label class="">Type:</label>
+									{{form.type}}
+									{% for item in form.type.errors %}
+									<div class="invalid-feedback">{{item}}</div>
+									{% endfor %}
+									<span class="form-text text-muted">Please select field type</span>
+								</div>
+							</div>
+							<div id="form-container" class="row">
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--end: Datatable -->
+		</div>
+
+		<script type="text/html" id="hbs-fkmodule">
+			<div class="col-lg-3">
+			<label>FK Module:</label>
+			{{form.fkmodule}}
+			{% for item in form.fkmodule.errors %}
+				<div class="invalid-feedback">{{item}}</div>
+			{% endfor %}
+			<span class="form-text text-muted">Select ForeignKey Module</span>
+			</div>
+		</script>
+
+		<script type="text/html" id="hbs-ondelete">
+			<div class="col-lg-3">
+			<label class="">On delete:</label>
+			{{form.on_delete}}
+			{% for item in form.on_delete.errors %}
+				<div class="invalid-feedback">{{item}}</div>
+			{% endfor %}
+			<span class="form-text text-muted">On delete event</span>
+			</div>
+		</script>
+
+		<script type="text/html" id="hbs-option">
+			<div class="col-lg-3">
+			<label>Option:</label>
+			{{form.option}}
+			{% for item in form.option.errors %}
+				<div class="invalid-feedback">{{item}}</div>
+			{% endfor %}
+			<span class="form-text text-muted">Enter list of choices</span>
+			</div>
+		</script>
+
+		<script type="text/html" id="hbs-default">
+			<div class="col-lg-3">
+			<label class="">Default:</label>
+			<input hidden id="id_default_val" value={{form.default.value}}>
+			{{form.default}}
+			{% for item in form.default.errors %}
+				<div class="invalid-feedback">{{item}}</div>
+			{% endfor %}
+			<span class="form-text text-muted" id="id_default_helptext">Enter default value</span>
+			</div>
+		</script>
+
+		<script type="text/html" id="hbs-maxlength">
+			<div class="col-lg-3">
+			<label>Max length:</label>
+			{{form.max_length}}
+			{% for item in form.max_length.errors %}
+			<div class="invalid-feedback">{{item}}</div>
+			{% endfor %}
+			<span class="form-text text-muted">Field max length</span>
+			</div>
+		</script>
+
+	</div>
+</form>
+{% endblock content %} {% block javascript %}
+{% comment %}
+<script type="text/javascript" src="{% static 'plugins/custom/datatables/datatables.bundle.js' %}"></script>
+{% endcomment %}
+<script type="text/javascript" src="{% static 'js/riso/app_mgmt/edit.js' %}"></script>
+{% endblock javascript %} {% block pagescript %}
+
+<script>
+	$(document).ready(function () {
+		$('#id_module').val('{{model}}').prop('selected', true).change();
+	});
+</script>
+
+{% endblock pagescript %}

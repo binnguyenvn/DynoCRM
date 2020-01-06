@@ -1,0 +1,12 @@
+<div>
+<label class="kt-switch kt-switch--outline kt-switch--icon kt-switch--success">
+    <input type="{{ widget.type }}" 
+            name="{{ widget.name }}"
+            {% if widget.value != None %}
+            value="{{ widget.value|stringformat:'s' }}"
+            {% endif %}
+            {% include "django/forms/widgets/attrs.html" %}
+    >
+    <span></span>
+</label>
+</div>

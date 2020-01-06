@@ -1,0 +1,107 @@
+<div id="kt_quick_panel" class="kt-quick-panel">
+        <a href="#" class="kt-quick-panel__close" id="kt_quick_panel_close_btn"><i class="flaticon2-delete"></i></a>
+        <div class="kt-quick-panel__nav">
+            <ul class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-brand  kt-notification-item-padding-x" role="tablist">
+                <li class="nav-item active">
+                    <a class="nav-link active" data-toggle="tab" href="#kt_quick_panel_tab_notifications" role="tab">Settings</a>
+                </li>
+            </ul>
+        </div>
+        <div class="kt-quick-panel__content">
+            <div class="tab-content">
+                <div class="tab-pane fade show kt-scroll active" id="kt_quick_panel_tab_notifications" role="tabpanel">
+                    <div class="kt-notification">
+                    {% if request.user.is_superuser %}
+                        <a href="{% url 'users:list' %}" class="kt-notification__item">
+                            <div class="kt-notification__item-icon">
+                                <i class="flaticon-network kt-font-success"></i>
+                            </div>
+                            <div class="kt-notification__item-details">
+                                <div class="kt-notification__item-title">
+                                    Staff Management
+                                </div>
+                                <div class="kt-notification__item-time">
+                                    Manage staff
+                                </div>
+                            </div>
+                        </a>
+                        {% endif %}
+                        <a href="{% url 'choices:list' %}" class="kt-notification__item">
+                            <div class="kt-notification__item-icon">
+                                <i class="flaticon-map kt-font-danger"></i>
+                            </div>
+                            <div class="kt-notification__item-details">
+                                <div class="kt-notification__item-title">
+                                    Choice List
+                                </div>
+                                <div class="kt-notification__item-time">
+                                    List choice collection for another Model
+                                </div>
+                            </div>
+                        </a>
+                        <a href="{% url 'app_mgmt:index' %}" class="kt-notification__item">
+                            <div class="kt-notification__item-icon">
+                                <i class="flaticon-interface-1 kt-font-success"></i>
+                            </div>
+                            <div class="kt-notification__item-details">
+                                <div class="kt-notification__item-title">
+                                    App Management
+                                </div>
+                                <div class="kt-notification__item-time">
+                                    List App and field
+                                </div>
+                            </div>
+                        </a>
+
+
+                        <a href="{% url 'filters:list' %}" class="kt-notification__item">
+                            <div class="kt-notification__item-icon">
+                                <i class="flaticon2-sort-alphabetically kt-font-brand"></i>
+                            </div>
+                            <div class="kt-notification__item-details">
+                                <div class="kt-notification__item-title">
+                                    Filter Management
+                                </div>
+                                <div class="kt-notification__item-time">
+                                    Advanced filter for each module
+                                </div>
+                            </div>
+                        </a>
+
+
+                        {% comment %} {% if request.user.is_superuser %}
+                        <a href="{% url 'menus:list' %}" class="kt-notification__item">
+                            <div class="kt-notification__item-icon">
+                                <i class="flaticon2-menu kt-font-danger"></i>
+                            </div>
+                            <div class="kt-notification__item-details">
+                                <div class="kt-notification__item-title">
+                                    Menu Management
+                                </div>
+                                <div class="kt-notification__item-time">
+                                    Enable/ Disable sorting Left menu
+                                </div>
+                            </div>
+                        </a>
+                        {% endif %} {% endcomment %}
+
+                        
+                        <a href="{% url 'dashboard:list' %}" class="kt-notification__item">
+                            <div class="kt-notification__item-icon">
+                                <i class="flaticon2-pie-chart kt-font-warning"></i>
+                            </div>
+                            <div class="kt-notification__item-details">
+                                <div class="kt-notification__item-title">
+                                    Dashboard Management
+                                </div>
+                                <div class="kt-notification__item-time">
+                                    Manage report in dashboard
+                                </div>
+                            </div>
+                        </a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

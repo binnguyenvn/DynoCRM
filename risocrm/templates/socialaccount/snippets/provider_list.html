@@ -1,0 +1,23 @@
+{% load socialaccount %}
+
+{% get_providers as socialaccount_providers %}
+
+<div class="kt-login__options">
+      
+{% for provider in socialaccount_providers %}
+
+    {% if provider.id == "facebook" %}
+    <a href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}" class="btn btn-primary kt-btn {{provider.id}}">
+        <i class="fab fa-facebook-f"></i>
+        Facebook
+    </a>
+    {% else %}
+    <a href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}" class="btn btn-danger kt-btn {{provider.id}}">
+        <i class="fab fa-{{provider.name|lower}}"></i>
+        {{provider.name|title}}
+    </a>
+    {% endif %}
+
+    
+{% endfor %}
+</div>

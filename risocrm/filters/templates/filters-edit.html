@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %} {% endblock css %}
+{% block pagecss %}
+<link href="{% static 'plugins/custom/datatables/datatables.bundle.css' %}" rel="stylesheet" type="text/css" /> {% endblock pagecss %} {% block toolbar %} {% endblock toolbar %} {% block content %}
+<div class="kt-portlet kt-portlet--mobile">
+<form action="{{request.path}}" method="post" class="validated">
+     {% csrf_token %}
+     
+    <div class="kt-portlet__head kt-portlet__head--lg">
+        <div class="kt-portlet__head-label">
+            <span class="kt-portlet__head-icon">
+                <i class="kt-font-brand flaticon2-line-chart"></i>
+            </span>
+            <h3 class="kt-portlet__head-title">
+                {{table_title}}
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-wrapper">
+                <div class="kt-portlet__head-actions">
+                    &nbsp;
+                    <button type="submit" class="btn btn-brand btn-elevate btn-icon-sm">
+                        <i class="la la-plus"></i> Save & edit
+                    </button>
+                    &nbsp;
+                    <a href="{{go_back_url}}" class="btn btn-danger btn-elevate btn-icon-sm" style="color: white;">
+                        <i class="la la-trash"></i> Cancel
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+
+        <!--begin: Datatable -->
+        <div id="kt_table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="kt-form kt-form--label-right">
+                      <div class="kt-portlet__body ">
+                        <div class="form-group row">
+                        <div class="col-lg-3 d-none">
+                          {{form.creator}}
+                          {{form.last_modified_by}}
+                        </div>
+                          <div class="col-lg-3">
+                            <label>Name:</label>
+                            {{form.name}}
+                            {% for item in form.name.errors %}
+                            <div class="invalid-feedback">{{item}}</div>
+                            {% endfor %}
+                            <span class="form-text text-muted">Please enter filter name</span>
+                          </div>
+                          <div class="col-lg-3">
+                            <label class="">Module:</label>
+                            {{form.module}}
+                            {% for item in form.module.errors %}
+                            <div class="invalid-feedback">{{item}}</div>
+                            {% endfor %}
+                            <span class="form-text text-muted">Please choose module</span>
+                          </div>
+                          <div class="col-lg-3">
+                            <label class="">Default:</label>
+                              {{form.default}}
+                            <span class="form-text text-muted">Make this filter default for module?</span>
+                          </div>
+                          <div class="col-lg-3">
+                            <label class="">Private:</label>
+                              {{form.private}}
+                            <span class="form-text text-muted">Is this filter is only for you?</span>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <div class="col-lg-9">
+                            <label class="">List field:</label>
+                            {{form.field_list}}
+                            {% for item in form.field_list.errors %}
+                            <div class="invalid-feedback">{{item}}</div>
+                            {% endfor %}
+                            <span class="form-text text-muted">Please select field to show in table</span>
+                          </div>
+                          <div class="col-lg-3">
+                            <label class="">Order by:</label>
+                            {{form.order_by}}
+                            {% for item in form.order_by.errors %}
+                            <div class="invalid-feedback">{{item}}</div>
+                            {% endfor %}
+                            <span class="form-text text-muted">Please select field to order</span>
+                          </div>
+                          
+                        </div>
+                      </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                <h5>Condition</h5>
+                <div class="kt-form kt-form--label-right contain_form">
+                    {{ formset.management_form }}
+                    <div class="kt-portlet__body detailformsetdiv">
+                      {% for dtform in formset %}
+                      {{dtform.id}}
+                      <div class="form-group row validated rowDetail-{{forloop.counter0}}">
+                        <div class="col-lg-3">
+                          <label class="form-control-label">Field:</label>
+                          {{dtform.field_name}}
+                          {% for item in dtform.field_name.errors %}
+                          <div class="invalid-feedback">{{item}}</div>
+                          {% endfor %}
+                          <span class="form-text text-muted">Please select field</span>
+                        </div>
+                        <div class="col-lg-3">
+                          <label class="">Operator:</label>
+                          {{dtform.operator}}
+                          {% for item in dtform.operator.errors %}
+                          <div class="invalid-feedback">{{item}}</div>
+                          {% endfor %}
+                          <span class="form-text text-muted">Please choose operator</span>
+                        </div>
+                        <div class="col-lg-3">
+                          <label class="">Value:</label>
+                          <div id="id_div_filter_details-{{forloop.counter0}}-value">
+                          {{dtform.value}}
+                          </div>
+                          {% for item in dtform.value.errors %}
+                          <div class="invalid-feedback">{{item}}</div>
+                          {% endfor %}
+                          <span class="form-text text-muted" id="id_title-{{forloop.counter0}}">Please input value</span>
+                        </div>
+                        <div class="col-lg-2 d-none" id="div-next-{{forloop.counter0}}-HIDDEN" >
+                          <label class="">Next</label>
+                          <select class="form-control kt-select2" id="id_detail-{{forloop.counter0}}-next" disabled>
+                            <option selected>AND</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-1">
+                          <label class="">Delete</label><br/>
+                            <label data-item="{{forloop.counter0}}"
+                              class="btn-delete-item btn btn-danger btn-icon">
+                              <i class="fa flaticon-delete-2"></i>
+                              <span hidden>{{dtform.DELETE}}</span>
+                        </label>
+                        </div>
+                      </div>
+                      {% endfor %}
+
+                    </div>
+                    <div class="kt-portlet__foot">
+                      <div class="row align-items-center">
+                        <div class="nullDivDetail col-lg-6 m--valign-middle" style="display:none">
+                          <div class="form-group row validated rowDetail-__prefix__">
+                            {{formset.empty_form.id}}
+                            <div class="col-lg-3">
+                              <label>Field:</label>
+                              {{formset.empty_form.field_name}}
+                              {% for item in form.field_name.errors %}
+                              <div class="invalid-feedback">{{item}}</div>
+                              {% endfor %}
+                              <span class="form-text text-muted">Please select field</span>
+                            </div>
+                            <div class="col-lg-3">
+                              <label class="">Operator:</label>
+                              {{formset.empty_form.operator}}
+                              {% for item in form.operator.errors %}
+                              <div class="invalid-feedback">{{item}}</div>
+                              {% endfor %}
+                              <span class="form-text text-muted">Please choose operator</span>
+                            </div>
+                            <div class="col-lg-3">
+                              <label class="">Value:</label>
+                              <div id="id_div_filter_details-__prefix__-value">
+                                {{formset.empty_form.value}}
+                              </div>
+                            {% for item in form.value.errors %}
+                            <div class="invalid-feedback">{{item}}</div>
+                            {% endfor %}
+                              <span class="form-text text-muted" id="id_title-__prefix__">Please input value</span>
+                            </div>
+                            <div class="col-lg-2 d-none" id="div-next-__prefix__-HIDDEN">
+                              <label class="">Next</label>
+                              <select class="form-control kt-select2" id="id_detail-__prefix__-next" disabled>
+                                <option selected>AND</option>
+                              </select>
+                            </div>
+                            <div class="col-lg-1">
+                              <label class="">Delete</label><br/>
+                                <label data-item="__prefix__"
+                                  class="btn-delete-item btn btn-danger btn-icon">
+                                  <i class="fa flaticon-delete-2"></i>
+                                  <span hidden>{{form.DELETE}}</span>
+                            </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-6 kt-align-right">
+                          <a class="addBtnDetailFS btn btn-outline-success btn-sm btn-icon btn-icon-md">
+                            <i class="flaticon2-add-1"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--end: Datatable -->
+    </div>
+
+</form>
+</div>
+<!--begin::Modal-->
+
+{% endblock content %} {% block javascript %}
+{% comment %} <script type="text/javascript" src="{% static 'plugins/custom/datatables/datatables.bundle.js' %}"></script> {% endcomment %}
+<script type="text/javascript" src="{% static 'js/riso/dynamic-formset.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/riso/filters/edit.js' %}"></script>
+{% endblock javascript %} {% block pagescript %}
+<script>
+  deleteFormSet();
+  
+  addFormSet(function(form) {
+    load_widget();
+  });
+  load_widget();
+  changeFieldInput();
+  changeOperatorInput();
+  changeValueInput();
+  $(document).ready(function () {
+		$('#id_field_list').val('{{form.field_list.value}}'.split(',')).change();
+	});
+</script>
+
+{% endblock pagescript %}

@@ -1,0 +1,18 @@
+# General
+# ------------------------------------------------------------------------------
+USE_DOCKER=yes
+IPYTHONDIR=/app/.ipython
+# Redis
+# ------------------------------------------------------------------------------
+REDIS_URL=redis://redis:6379/0
+
+# Celery
+# ------------------------------------------------------------------------------
+
+# Flower
+CELERY_FLOWER_USER=XaKHEdCPoNSseYTjdKBKfguHWJUKwsNl
+CELERY_FLOWER_PASSWORD=zhkWzzY8rDrYvAM2wj5mgLeRF3QavRJbX9QL1pr9gpc5l7XCrO0kRh4I6p2EXevd
+
+DJANGO_AWS_ACCESS_KEY_ID=
+DJANGO_AWS_SECRET_ACCESS_KEY=
+DJANGO_AWS_STORAGE_BUCKET_NAME=

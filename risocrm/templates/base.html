@@ -1,0 +1,511 @@
+{% load static i18n %}
+<!DOCTYPE html>
+
+<!--
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 4 & Angular 8
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Dribbble: www.dribbble.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+Renew Support: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<html lang="en">
+
+<!-- begin::Head -->
+
+<head>
+    <base href="">
+    <meta charset="utf-8" />
+    <title>RisoCRM - {{page_title}}</title>
+    <meta name="description" content="Latest updates and statistic charts">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--begin::Fonts -->
+    <link rel="stylesheet" 
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700"
+    >
+
+    <!--end::Fonts -->
+    <!--begin::Page Vendors Styles(used by this page) -->
+    <link rel="stylesheet" type="text/css" 
+      href="{% static 'plugins/custom/fullcalendar/fullcalendar.bundle.css' %}"
+    />
+
+    <!--end::Page Vendors Styles -->
+
+    <!--begin::Global Theme Styles(used by all pages) -->
+    <link rel="stylesheet" type="text/css" 
+      href="{% static 'plugins/global/plugins.bundle.css' %}"
+    />
+    <link rel="stylesheet" type="text/css"
+      href="{% static 'css/style.bundle.css' %}"/
+    >
+    {% block css %}
+
+    {% endblock css %}
+    <!--end::Global Theme Styles -->
+
+    <!--begin::Layout Skins(used by pages) -->
+    {% block pagecss %}
+    {% endblock pagecss %}
+    <!--end::Layout Skins -->
+    <link rel="shortcut icon" 
+    href="{% static 'media/logos/favicon.ico' %}"
+    />
+</head>
+
+<!-- end::Head -->
+
+<!-- begin::Body -->
+
+<body class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent kt-aside--enabled kt-aside--fixed kt-page--loading">
+
+    <!-- begin:: Page -->
+
+    <!-- begin:: Header Mobile -->
+    <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
+        <div class="kt-header-mobile__logo">
+            <a href="/">
+                <img alt="Logo"
+                  src="{% static 'media/logos/logo-12.png' %}"
+                  />
+            </a>
+        </div>
+        <div class="kt-header-mobile__toolbar">
+            <button class="kt-header-mobile__toolbar-toggler kt-header-mobile__toolbar-toggler--left" id="kt_aside_mobile_toggler"><span></span></button>
+            <button class="kt-header-mobile__toolbar-toggler" id="kt_header_mobile_toggler"><span></span></button>
+            <button class="kt-header-mobile__toolbar-topbar-toggler" id="kt_header_mobile_topbar_toggler"><i class="flaticon-more"></i></button>
+        </div>
+    </div>
+
+    <!-- end:: Header Mobile -->
+    <div class="kt-grid kt-grid--hor kt-grid--root">
+        <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
+
+            <!-- begin:: Aside -->
+            <button class="kt-aside-close " id="kt_aside_close_btn"><i class="la la-close"></i></button>
+            <div class="kt-aside  kt-aside--fixed  kt-grid__item kt-grid kt-grid--desktop kt-grid--hor-desktop" id="kt_aside">
+
+                <!-- begin:: Aside -->
+                <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
+                    <div class="kt-aside__brand-logo">
+                        <a href="/">
+                            <img alt="Logo" 
+                              src="{% static 'media/logos/logo-12.png' %}"
+                            >
+                        </a>
+                    </div>
+                    <div class="kt-aside__brand-tools">
+                        <button class="kt-aside__brand-aside-toggler" id="kt_aside_toggler"><span></span></button>
+                    </div>
+                </div>
+
+                <!-- end:: Aside -->
+
+                <!-- begin:: Aside Menu -->
+                {% include 'partials/menus/aside_menu.html' %}
+                <!-- end:: Aside Menu -->
+            </div>
+
+            <!-- end:: Aside -->
+            <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
+
+                <!-- begin:: Header -->
+                <div id="kt_header" class="kt-header kt-grid__item  kt-header--fixed ">
+
+                    <!-- begin: Header Menu -->
+                    <button class="kt-header-menu-wrapper-close" id="kt_header_menu_mobile_close_btn"><i class="la la-close"></i></button>
+                    {% include 'partials/menus/top_menu.html' %}
+
+                    <!-- end: Header Menu -->
+
+                    <!-- begin:: Header Topbar -->
+                    <div class="kt-header__topbar">
+
+                        <!--begin: Search -->
+
+                        <!--begin: Search -->
+                        <div class="kt-header__topbar-item kt-header__topbar-item--search dropdown" id="kt_quick_search_toggle">
+                            <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
+                                <span class="kt-header__topbar-icon">
+										<i class="flaticon2-search-1"></i>
+									</span>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-lg">
+                                <div class="kt-quick-search kt-quick-search--dropdown kt-quick-search--result-compact" id="kt_quick_search_dropdown">
+                                    <form method="get" class="kt-quick-search__form">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"><span class="input-group-text"><i class="flaticon2-search-1"></i></span></div>
+                                            <input type="text" class="form-control kt-quick-search__input" placeholder="Search...">
+                                            <div class="input-group-append"><span class="input-group-text"><i class="la la-close kt-quick-search__close"></i></span></div>
+                                        </div>
+                                    </form>
+                                    <div class="kt-quick-search__wrapper kt-scroll" data-scroll="true" data-height="325" data-mobile-height="200">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--end: Search -->
+
+                        <!--end: Search -->
+
+                        <!--begin: Notifications -->
+                        {% include 'partials/notification_topbar.html' %}
+
+                        <!--end: Notifications -->
+
+                        <!--begin: Language bar -->
+                        {% comment %} <div class="kt-header__topbar-item kt-header__topbar-item--langs">
+                            <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
+                                <span class="kt-header__topbar-icon">
+										              <img class=""  alt="" 
+                                    src="{% static 'media/flags/226-united-states.svg' %}"
+                                  />
+                                </span>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround">
+                                <ul class="kt-nav kt-margin-t-10 kt-margin-b-10">
+                                    <li class="kt-nav__item kt-nav__item--active">
+                                        <a href="#" class="kt-nav__link">
+                                            <span class="kt-nav__link-icon">
+                                              <img alt="" 
+                                                src="{% static 'media/flags/226-united-states.svg' %}"
+                                              />
+                                            </span>
+                                            <span class="kt-nav__link-text">English</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-nav__item">
+                                        <a href="#" class="kt-nav__link">
+                                            <span class="kt-nav__link-icon">
+                                              <img  alt=""
+                                                src="{% static 'media/flags/128-spain.svg' %}"
+                                              />
+                                            </span>
+                                            <span class="kt-nav__link-text">Spanish</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-nav__item">
+                                        <a href="#" class="kt-nav__link">
+                                            <span class="kt-nav__link-icon">
+                                              <img alt="" 
+                                                src="{% static 'media/flags/162-germany.svg' %}"
+                                              />
+                                            </span>
+                                            <span class="kt-nav__link-text">German</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div> {% endcomment %}
+
+                        <!--end: Language bar -->
+
+                        <!--begin: Quick panel toggler -->
+                        <div class="kt-header__topbar-item kt-header__topbar-item--quick-panel" data-toggle="kt-tooltip" title="System settings panel" data-placement="right">
+                            <span class="kt-header__topbar-icon" id="kt_quick_panel_toggler_btn">
+									<i class="flaticon2-gear"></i>
+								</span>
+                        </div>
+
+                        <!--end: Quick panel toggler -->
+
+
+                        <!--begin: User Bar -->
+                        <div class="kt-header__topbar-item kt-header__topbar-item--user">
+                            <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="0px,0px">
+                                <div class="kt-header__topbar-user">
+                                    <span class="kt-header__topbar-welcome kt-hidden-mobile">Hi,</span>
+                                    <span class="kt-header__topbar-username kt-hidden-mobile">{{request.user.first_name|default:request.user.username}}</span>
+                                    <img alt="Pic" class="kt-radius-100" 
+                                      src="{% if request.user.avatar %}{{request.user.avatar.url}} {% else %} {% static 'media/users/300_1.jpg' %}{% endif %}" 
+                                    />
+
+                                    <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
+
+                                    <!--<span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold">S</span>-->
+                                </div>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl">
+
+                                <!--begin: Head -->
+                                <div class="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x" style="background-image: url({% static 'media/misc/bg-1.jpg' %})">
+                                    <div class="kt-user-card__avatar">
+                                        <img class="kt-hidden" alt="Pic"
+                                          src="{% if request.user.avatar %}{{request.user.avatar.url}} {% else %} {% static 'media/users/300_1.jpg' %}{% endif %}"
+                                        />
+
+                                        <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
+                                        <span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success">{{request.user.first_name.0|title|default:request.user.username.0|title}}</span>
+                                    </div>
+                                    <div class="kt-user-card__name">
+                                        {{request.user.first_name|title|default:request.user.username|title}}
+                                    </div>
+                                    <div class="kt-user-card__badge">
+                                        <span class="btn btn-success btn-sm btn-bold btn-font-md">{{request.user.groups.all.0.name|default:'Unknown'}}</span>
+                                    </div>
+                                </div>
+
+                                <!--end: Head -->
+
+                                <!--begin: Navigation -->
+                                <div class="kt-notification">
+                                    <a href="{% url 'users:detail' request.user.username %}" class="kt-notification__item">
+                                        <div class="kt-notification__item-icon">
+                                            <i class="flaticon2-calendar-3 kt-font-success"></i>
+                                        </div>
+                                        <div class="kt-notification__item-details">
+                                            <div class="kt-notification__item-title kt-font-bold">
+                                                My Profile
+                                            </div>
+                                            <div class="kt-notification__item-time">
+                                                Account settings and more
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="{% url 'account_change_password' %}" class="kt-notification__item">
+                                        <div class="kt-notification__item-icon">
+                                            <i class="flaticon-lock kt-font-warning"></i>
+                                        </div>
+                                        <div class="kt-notification__item-details">
+                                            <div class="kt-notification__item-title kt-font-bold">
+                                                Privacy
+                                            </div>
+                                            <div class="kt-notification__item-time">
+                                                Password
+                                            </div>
+                                        </div>
+                                    </a> 
+                                    {% comment %} <a href="custom/apps/user/profile-3.html" class="kt-notification__item">
+                                        <div class="kt-notification__item-icon">
+                                            <i class="flaticon2-mail kt-font-warning"></i>
+                                        </div>
+                                        <div class="kt-notification__item-details">
+                                            <div class="kt-notification__item-title kt-font-bold">
+                                                My Messages
+                                            </div>
+                                            <div class="kt-notification__item-time">
+                                                Inbox and tasks
+                                            </div>
+                                        </div>
+                                    </a> {% endcomment %}
+                                    {% comment %} <a href="custom/apps/user/profile-2.html" class="kt-notification__item">
+                                        <div class="kt-notification__item-icon">
+                                            <i class="flaticon2-rocket-1 kt-font-danger"></i>
+                                        </div>
+                                        <div class="kt-notification__item-details">
+                                            <div class="kt-notification__item-title kt-font-bold">
+                                                My Activities
+                                            </div>
+                                            <div class="kt-notification__item-time">
+                                                Logs and notifications
+                                            </div>
+                                        </div>
+                                    </a> {% endcomment %}
+                                    {% comment %} <a href="custom/apps/user/profile-3.html" class="kt-notification__item">
+                                        <div class="kt-notification__item-icon">
+                                            <i class="flaticon2-hourglass kt-font-brand"></i>
+                                        </div>
+                                        <div class="kt-notification__item-details">
+                                            <div class="kt-notification__item-title kt-font-bold">
+                                                My Tasks
+                                            </div>
+                                            <div class="kt-notification__item-time">
+                                                latest tasks and projects
+                                            </div>
+                                        </div>
+                                    </a> {% endcomment %}
+                                    {% comment %} <a href="custom/apps/user/profile-1/overview.html" class="kt-notification__item">
+                                        <div class="kt-notification__item-icon">
+                                            <i class="flaticon2-cardiogram kt-font-warning"></i>
+                                        </div>
+                                        <div class="kt-notification__item-details">
+                                            <div class="kt-notification__item-title kt-font-bold">
+                                                Billing
+                                            </div>
+                                            <div class="kt-notification__item-time">
+                                                billing & statements <span class="kt-badge kt-badge--danger kt-badge--inline kt-badge--pill kt-badge--rounded">2 pending</span>
+                                            </div>
+                                        </div>
+                                    </a> {% endcomment %}
+                                    <div class="kt-notification__custom kt-space-between">
+                                        <a href="{% url 'account_logout' %}" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</a>
+                                        {% comment %} <a href="custom/user/login-v2.html" target="_blank" class="btn btn-clean btn-sm btn-bold">Upgrade Plan</a> {% endcomment %}
+                                    </div>
+                                </div>
+
+                                <!--end: Navigation -->
+                            </div>
+                        </div>
+
+                        <!--end: User Bar -->
+                    </div>
+
+                    <!-- end:: Header Topbar -->
+                </div>
+
+                <!-- end:: Header -->
+                <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
+
+                    <!-- begin:: Subheader -->
+                    <div class="kt-subheader   kt-grid__item" id="kt_subheader">
+                        <div class="kt-container  kt-container--fluid ">
+                            <div class="kt-subheader__main">
+                                <h3 class="kt-subheader__title">
+                                    {{page_title}} </h3>
+                                <span class="kt-subheader__separator kt-hidden"></span>
+                                <div class="kt-subheader__breadcrumbs">
+                                    <a href="#" class="kt-subheader__breadcrumbs-home">
+                                    <i class="flaticon2-shelter"></i></a>
+                                    {% if go_back_desc %}
+                                    <span class="kt-subheader__breadcrumbs-separator"></span>
+                                    <a href="{{go_back_url}}" class="kt-subheader__breadcrumbs-link">
+											{{go_back_desc}} </a>
+                                    {% endif %}
+                                    {% if table_title %}
+                                    <span class="kt-subheader__breadcrumbs-separator"></span>
+                                    <span class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">{{table_title}}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% block toolbar %}
+                            {% endblock toolbar %}
+                        </div>
+                    </div>
+
+                    <!-- end:: Subheader -->
+
+                    <!-- begin:: Content -->
+                    <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+                        <!--Begin::Dashboard 1-->
+                        {% include 'partials/alerts/msg_alert.html' %}
+                        {% block content %}
+                        {% endblock content %}
+
+
+                        <!--End::Dashboard 1-->
+                    </div>
+
+                    <!-- end:: Content -->
+                </div>
+
+                <!-- begin:: Footer -->
+                <div class="kt-footer  kt-grid__item kt-grid kt-grid--desktop kt-grid--ver-desktop" id="kt_footer">
+                    <div class="kt-container  kt-container--fluid ">
+                        <div class="kt-footer__copyright">
+                            2020&nbsp;&copy;&nbsp;<a href="https://risotech.vn" target="_blank" class="kt-link">Risotech</a>
+                        </div>
+                        <div class="kt-footer__menu">
+                            {% comment %} <a href="http://keenthemes.com/metronic" target="_blank" class="kt-footer__menu-link kt-link">About</a>
+                            <a href="http://keenthemes.com/metronic" target="_blank" class="kt-footer__menu-link kt-link">Team</a>
+                            <a href="http://keenthemes.com/metronic" target="_blank" class="kt-footer__menu-link kt-link">Contact</a> {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- end:: Footer -->
+            </div>
+        </div>
+    </div>
+
+    <!-- end:: Page -->
+
+    <!-- begin::Quick Panel -->
+    {% include 'partials/menus/setting_menu.html' %}
+
+    <!-- end::Quick Panel -->
+
+    <!-- begin::Scrolltop -->
+    <div id="kt_scrolltop" class="kt-scrolltop">
+        <i class="fa fa-arrow-up"></i>
+    </div>
+
+    <!-- end::Scrolltop -->
+
+    <!--Begin:: Chat-->
+
+    <!--ENd:: Chat-->
+
+    <!-- begin::Global Config(global config for global JS sciprts) -->
+    <script>
+        var KTAppOptions = {
+            "colors": {
+                "state": {
+                    "brand": "#2c77f4",
+                    "light": "#ffffff",
+                    "dark": "#282a3c",
+                    "primary": "#5867dd",
+                    "success": "#34bfa3",
+                    "info": "#36a3f7",
+                    "warning": "#ffb822",
+                    "danger": "#fd3995"
+                },
+                "base": {
+                    "label": ["#c5cbe3", "#a1a8c3", "#3d4465", "#3e4466"],
+                    "shape": ["#f0f3ff", "#d9dffa", "#afb4d4", "#646c9a"]
+                }
+            }
+        };
+    </script>
+
+    <!-- end::Global Config -->
+
+    <!--begin::Global Theme Bundle(used by all pages) -->
+    <script type="text/javascript"
+      src="{% static 'plugins/global/plugins.bundle.js' %}"
+    ></script>
+    <script type="text/javascript"
+      src="{% static 'js/scripts.bundle.js' %}"
+    ></script>
+    <script type="text/javascript"
+      src="{% static 'js/riso/jquery.timeago.js' %}"
+    ></script>
+    <script type="text/javascript"
+      src="{% static 'js/riso/jquery.notices.js' %}"
+    ></script>
+    <script type="text/javascript"
+      src="{% static 'js/riso/ajax_pass.js' %}"
+    ></script>
+    <!--end::Global Theme Bundle -->
+
+    <!--begin::Page Vendors(used by this page) -->
+    {% block javascript %}
+    {% endblock javascript %}
+    
+    <!--end::Page Vendors -->
+    
+    <!--begin::Page Scripts(used by this page) -->
+    <script>
+    // demo loading
+    var loading = new KTDialog({ 'type': 'loader', 'placement': 'top center', 'message': 'Loading ...' });
+    loading.show();
+    $( document ).ready(function() {
+        loading.hide();
+    });
+    function make_migration() {
+        ajax_get("{% url 'app_mgmt:make_migrations' %}");
+    }
+    function migrate() {
+        ajax_get("{% url 'app_mgmt:migrate' %}");
+    }
+    get_notices();
+    get_counter();
+    //set an interval Notifications
+    setInterval(get_notices, 36000);
+    setInterval(get_counter, 36000);
+    </script>
+    
+    {% block pagescript %}
+    {% endblock pagescript %}
+
+    <!--end::Page Scripts -->
+</body>
+
+<!-- end::Body -->
+
+</html>
