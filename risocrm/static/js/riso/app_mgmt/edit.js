@@ -32,7 +32,7 @@ var listFieldObjects = {
     ManyToManyField: ['fkmodule', 'ondelete', ],
     OneToOneField: ['fkmodule', 'ondelete', ],
 
-    CharField: ['option', 'default', 'maxlength'],
+    CharField: ['option', 'detail', 'maxlength'],
     TextField: ['default', ],
 
     BooleanField: ['default', ],

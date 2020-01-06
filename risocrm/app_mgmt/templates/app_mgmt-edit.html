@@ -106,6 +106,7 @@
 		</script>
 
 		<script type="text/html" id="hbs-ondelete">
+		
 			<div class="col-lg-3">
 			<label class="">On delete:</label>
 			{{form.on_delete}}
@@ -119,11 +120,38 @@
 		<script type="text/html" id="hbs-option">
 			<div class="col-lg-3">
 			<label>Option:</label>
-			{{form.option}}
+			<div class="form-group ">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<a href="{% url 'choices:create' %}" target="_blank" class="input-group-text"><i class="flaticon-plus"></i></a>
+					</div>
+					{{form.option}}
+					<div class="input-group-append">
+						<button class="input-group-text" type="button" style="color:white;"><i class="flaticon-refresh"></i></button>
+					</div>
+				</div>
+			</div>
 			{% for item in form.option.errors %}
 				<div class="invalid-feedback">{{item}}</div>
 			{% endfor %}
 			<span class="form-text text-muted">Enter list of choices</span>
+			</div>
+		</script>
+
+		<script type="text/html" id="hbs-detail">
+			<div class="col-lg-3">
+			<label class="">Default:</label>
+			<input hidden id="id_default_val" value={{form.default.value}}>
+			<div class="form-group ">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<a href="#" target="_blank" class="input-group-text"><i class="flaticon-plus"></i></a>
+					</div>
+					{{form.default}}
+					<div class="input-group-append">
+						<button class="input-group-text" type="button" style="color:white;"><i class="flaticon-refresh"></i></button>
+					</div>
+				</div>
 			</div>
 		</script>
 

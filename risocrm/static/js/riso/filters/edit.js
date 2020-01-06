@@ -39,7 +39,6 @@ $('#id_order_by').select2({
 
 function changeFieldInput(callback = function(form) {}) {
     $(document).delegate('.field-name', 'change', function(e) {
-        console.log('call');
         var form = $(e.target).parents('.contain_form');
         var idx = $(this)[0].id.split('-')[1];
         var module = $('#id_module').val();
@@ -208,12 +207,16 @@ function changeFieldInput(callback = function(form) {}) {
 
 function changeOperatorInput(callback = function(form) {}) {
     $(document).delegate('.field-operator', 'change', function(e) {
+
         var form = $(e.target).parents('.contain_form');
         var idx = $(this)[0].id.split('-')[1];
+
         var field = $(this).val();
         if (field == 'in') {
+
             $('#id_title-' + idx).text('Use Comma "," to separate item!');
             if ($('#id_filter_details-' + idx + '-value').prop('type') == 'select-one') {
+
                 $('#id_filter_details-' + idx + '-value').attr('multiple', '');
                 $('#id_filter_details-' + idx + '-value').select2({
                     placeholder: "Select multiple",
@@ -259,3 +262,21 @@ function load_widget() {
 
     });
 }
+$(document).ready(function() {
+    $('.detailformsetdiv input[id$="-value"]').each(function(idx, el) {
+        if (el.value.includes(',')) {
+            var val = el.value;
+            $('#id_filter_details-' + idx + '-field_name').change();
+            setTimeout(function() {
+                $('#id_filter_details-' + idx + '-value').attr('multiple', '');
+                $('#id_filter_details-' + idx + '-value').select2({
+                    placeholder: "Select multiple",
+                });
+                $('#id_filter_details-' + idx + '-value').attr('id', 'id_filter_details-' + idx + '-value-fake');
+                input = '<input type="text" name="filter_details-' + idx + '-value" class="field-value form-control" maxlength="500" id="id_filter_details-' + idx + '-value" hidden></input>';
+                $('#div-next-' + idx + '-HIDDEN').append(input);
+                $('#id_filter_details-' + idx + '-value-fake').val(val.split(',')).change();
+            }, 100);
+        }
+    });
+});

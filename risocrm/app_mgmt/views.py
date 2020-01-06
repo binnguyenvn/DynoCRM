@@ -52,7 +52,7 @@ def view(request):
         'go_back_desc': 'Model list',
         'model': model,
     }
-    content['obj_list'] = Dynafield.objects.filter(module=model)
+    content['obj_list'] = Dynafield.objects.filter(module=model).order_by('group')
 
     return render(request, 'app_mgmt-view.html', content)
 
