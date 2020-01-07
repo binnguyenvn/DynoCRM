@@ -9,6 +9,7 @@ from django.utils import timezone
 
 from risocrm.bases.global_variables import NOTICE_CHOICES
 from risocrm.bases.models import BaseModel
+from webpush import send_user_notification
 
 User = get_user_model()
 
@@ -28,6 +29,9 @@ class Notice(BaseModel):
 
     def __str__(self):
         return u"%s" % (self.content)
-    
+
     def save(self, *args, **kwargs):
         super(Notice, self).save(*args, **kwargs)
+        payload = {"head": "Notification from CRM", "body": self.content, "icon": "https://riso-media.s3.amazonaws.com/static/images/logo.svg", "url": self.url}
+        send_user_notification(user=self.to_user, payload=payload, ttl=1000)
+
