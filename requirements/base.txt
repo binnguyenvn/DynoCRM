@@ -33,3 +33,6 @@ django-url-filter # http://django-url-filter.readthedocs.io/
 # Facebook
 facebook_business
 facebookads
+
+# NOTIFICATION
+django-webpush

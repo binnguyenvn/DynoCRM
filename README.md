@@ -17,6 +17,7 @@
  - Dynamic dashboard with amchart (Not working yet)
  - Notification
 	 - Current using jquery interval to call
+	 - Push notice through Browser [Webpush](https://github.com/safwanrahman/django-webpush)
 
 
 ## Description
@@ -45,6 +46,7 @@
 ### Noitce
 - Only have api to count unread/ read action/ list
 - API using JsonResponse
+- Generate key npm install -g web-push && web-push generate-vapid-keys fill into .envs/.django
 
 ### Activities
 - API using DRF

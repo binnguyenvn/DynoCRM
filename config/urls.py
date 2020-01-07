@@ -25,6 +25,9 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path("notes/", include("risocrm.notes.urls")),
     path("activities/", include("risocrm.activities.urls")),
+    
+    # NOTIFICATION
+    path("webpush/", include("webpush.urls")),
     # Your stuff: custom urls includes go here
     # Contact management
     path("contacts/", include("risocrm.contacts.urls")),

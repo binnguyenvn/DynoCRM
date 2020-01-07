@@ -53,3 +53,6 @@ class User(AbstractUser):
         if self.online:
             return '<span style="width: 100px;"><span class="btn btn-bold btn-sm btn-font-sm  btn-label-success">Online</span></span>'
         return '<span style="width: 100px;"><span class="btn btn-bold btn-sm btn-font-sm  btn-label-danger">Offline</span></span>'
+
+    def is_subcribe(self):
+        return self.webpush_info.all().count() > 0

@@ -74,6 +74,7 @@ THIRD_PARTY_APPS = [
     "django_celery_beat",
     # mapping API with datatable
     "rest_framework_datatables",
+    'webpush',
 ]
 
 LOCAL_APPS = [
@@ -426,4 +427,10 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework_datatables.pagination.DatatablesPageNumberPagination',
     'PAGE_SIZE': 50,
+}
+
+WEBPUSH_SETTINGS = {
+    "VAPID_PUBLIC_KEY": env("VAPID_PUBLIC_KEY", default=""),
+    "VAPID_PRIVATE_KEY": env("VAPID_PRIVATE_KEY", default=""),
+    "VAPID_ADMIN_EMAIL": env("VAPID_ADMIN_EMAIL", default="")
 }

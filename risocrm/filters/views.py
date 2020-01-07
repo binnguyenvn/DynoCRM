@@ -15,7 +15,6 @@ from risocrm.app_mgmt.helpers import field_name_tuple, module_name_tuple
 from risocrm.configs.models import FilterConfig
 from risocrm.filters.forms import FilterDetailFS, FilterForm
 from risocrm.filters.models import Filter
-from risocrm.filters.serializers import FilterDepthSerializer
 
 User = get_user_model()
 
