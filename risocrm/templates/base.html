@@ -506,11 +506,21 @@ License: You must have a valid license purchased only from themeforest(the above
     {% block pagescript %}
     {% endblock pagescript %}
 
-    <script>
+    <script >
         $( document ).ready(function() {
             $('#webpush-subscribe-button').click();
+
+            $('script[id$="-scripting"]').each(function(idx, el){
+                var script = document.createElement("script")
+                script.type = "text/javascript";
+                script.text = el.innerText;
+                $('#id_mainscript')[0].appendChild(script);
+            });
+            
         });
     </script>
+    <div id='id_mainscript'>
+    </div>
     <!--end::Page Scripts -->
 </body>
 

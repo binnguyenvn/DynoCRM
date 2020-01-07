@@ -2,77 +2,48 @@
     App Publish API
     Note API
 """
-from django.http import Http404, HttpResponse
-from rest_framework import request, status
-from rest_framework.pagination import LimitOffsetPagination
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from rest_framework import filters
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ReadOnlyModelViewSet
 from url_filter.integrations.drf import DjangoFilterBackend
 
-from risocrm.bases.responses import (Response_200, Response_201, Response_400,
-                                     Response_404, Response_503)
+from risocrm.app_mgmt.helpers import contentype_from_url
 from risocrm.notes.models import Note
-from risocrm.notes.serializers import NoteDepthSerializer, NoteSerializer
+from risocrm.notes.serializers import NoteDepthSerializer
 
 
-class NoteViewSet(ModelViewSet):
+class NoteViewSet(ReadOnlyModelViewSet):
     """
         Note API for Admin manage
     """
     queryset = Note.objects.all()
     serializer_class = NoteDepthSerializer
     permission_classes = (IsAuthenticated,)
-    pagination_class = LimitOffsetPagination
 
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filter_fields = "__all__"
 
-    def list(self, request, *args, **kwargs):
-        response = super(NoteViewSet, self).list(request, *args, **kwargs)
-        return Response_200(data=response.data)
+    ordering_fields = "__all__"
+    ordering = ('-time_created')
 
-    def retrieve(self, request, *args, **kwargs):
-        try:
-            response = super(NoteViewSet, self).retrieve(request, *args, **kwargs)
-            return Response_200(data=response.data)
-        except Http404:
-            return Response_404(data={"non_field_errors": "NOTE_NOT_FOUND"})
 
-    def create(self, request, *args, **kwargs):
-        serializer = NoteSerializer(data=request.data)
-        if not serializer.is_valid():
-            return Response_400(data=serializer.errors)
-        obj = serializer.save(creator=request.user)
-        serializer = NoteDepthSerializer(obj)
-        return Response_201(data=serializer.data)
-
-    def update(self, request, *args, **kwargs):
-        try:
-            obj = Note.objects.get(pk=kwargs["pk"])
-            serializer = NoteSerializer(obj, data=request.data, partial=True)
-            if not serializer.is_valid():
-                return Response_400(data=serializer.errors)
-            obj = serializer.save(last_modified_by=request.user)
-            serializer = NoteDepthSerializer(obj)
-            return Response_200(data=serializer.data)
-        except Http404:
-            return Response_400(data={"non_field_errors": "NOTE_NOT_FOUND"})
-
-    def partial_update(self, request, *args, **kwargs):
-        try:
-            obj = Note.objects.get(pk=kwargs["pk"])
-            serializer = NoteSerializer(obj, data=request.data, partial=True)
-            if not serializer.is_valid():
-                return Response_400(data=serializer.errors)
-            obj = serializer.save(last_modified_by=request.user)
-            serializer = NoteDepthSerializer(obj)
-            return Response_200(data=serializer.data)
-        except Http404:
-            return Response_400(data={"non_field_errors": "NOTE_NOT_FOUND"})
-
-    def destroy(self, request, *args, **kwargs):
-        try:
-            response = super(NoteViewSet, self).destroy(request, *args, **kwargs)
-            return Response_200(data=response.data)
-        except Http404:
-            return Response_404(data={"non_field_errors": "NOTE_NOT_FOUND"})
+@login_required()
+def create(request):
+    note = request.POST.get('note', None)
+    if note is None:
+        return JsonResponse({'data': 'Note cannot None'}, status=400)
+    path = request.META.get('HTTP_REFERER', None) or '/'
+    content_type = contentype_from_url(path)
+    if content_type is None:
+        return JsonResponse({'data': 'Cannot find Model'}, status=400)
+    id = path.split('/')[-1]
+    Note.objects.create(
+        content_type=content_type,
+        object_id=id,
+        type=request.POST.get('type'),
+        note=note,
+        creator=request.user
+    )
+    return JsonResponse({'data': 'Create done'}, status=200)

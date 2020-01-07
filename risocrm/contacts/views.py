@@ -29,7 +29,7 @@ def index(request):
     except Exception:
         pass
 
-    return render(request, 'contacts-view.html', context)
+    return render(request, 'contacts-list.html', context)
 
 
 @login_required

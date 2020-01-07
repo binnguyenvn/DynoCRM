@@ -1,0 +1,104 @@
+<form id="id_noteForm">
+{% csrf_token %}
+    <div class="form-group">
+        <textarea class="form-control" require id="id_note" name="note" rows="3" placeholder="Type notes"></textarea>
+        <input type="text" id="id_type" name="type" class="d-none" value="flaticon2-user">
+    </div>
+    <div class="row">
+        <div class="col">
+            <a onclick="noteSubmit();" class="btn btn-label-brand btn-bold">Add notes</a>
+            <button class="btn btn-clean btn-bold" type="reset">Cancel</button>
+        </div>
+    </div>
+</form>
+<script>
+    function noteSubmit() {
+    $.ajax({
+        headers: {
+        'X-CSRFToken': $('[name="csrfmiddlewaretoken"]').val()
+        },
+        url: "{% url 'notes:create' %}",
+        type: 'POST',
+        data: $('#id_noteForm').serialize(),
+        success: function(res) {
+            console.log(res);
+            var input = `
+                <div class="kt-notes__item">
+                    <div class="kt-notes__media">
+                        <span class="kt-notes__icon">
+                            <i class="flaticon2-user kt-font-danger"></i>
+                        </span>
+                    </div>
+                    <div class="kt-notes__content">
+                        <div class="kt-notes__section">
+                            <div class="kt-notes__info">
+                                <a href="#" class="kt-notes__title">
+                                    {{request.user.first_name}}
+                                </a>
+                                <span class="kt-notes__desc">
+                                    Just now
+                                </span>
+                            </div>
+                        </div>
+                        <span class="kt-notes__body">
+                            `+$('#id_note').val()+`
+                        </span>
+                    </div>
+                </div>
+                `;
+                $('#id_noteScroll').prepend(input);
+                $('#id_note').val('')
+        },
+        error: function(res){
+        }
+    });
+    }
+</script>
+
+<div class="kt-separator kt-separator--space-lg kt-separator--border-dashed"></div>
+<div class="kt-notes kt-scroll kt-scroll--pull" data-scroll="true" style="height: 700px;">
+    <div class="kt-notes__items" id="id_noteScroll">
+
+        
+
+    </div>
+</div>
+
+<script id="noteScroll-scripting" >
+function notePull() {
+    $.ajax({
+        url: "{% url 'notes:note-list' %}",
+        type: "GET",
+        success: function(results) {
+            $.each(results.results, function() {
+                var input = `
+                <div class="kt-notes__item">
+                    <div class="kt-notes__media">
+                        <span class="kt-notes__icon">
+                            <i class="`+this.type+` kt-font-danger"></i>
+                        </span>
+                    </div>
+                    <div class="kt-notes__content">
+                        <div class="kt-notes__section">
+                            <div class="kt-notes__info">
+                                <a href="#" class="kt-notes__title">
+                                    `+this.creator.first_name+`
+                                </a>
+                                <span class="kt-notes__desc">
+                                    `+$.timeago(this.time_created)+`
+                                </span>
+                            </div>
+                        </div>
+                        <span class="kt-notes__body">
+                            `+this.note+`
+                        </span>
+                    </div>
+                </div>
+                `;
+                $('#id_noteScroll').append(input);
+            });
+        }
+    });
+}
+notePull();
+</script>

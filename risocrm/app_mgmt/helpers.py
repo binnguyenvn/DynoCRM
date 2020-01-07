@@ -5,6 +5,7 @@
 import re
 
 from django.contrib.contenttypes.models import ContentType
+from django.urls import resolve
 from jinja2 import Template
 
 from risocrm.app_mgmt.models import Dynafield
@@ -193,3 +194,15 @@ def model_render(model, field_list):
     file = open(model_path, 'w+')
     file.write(new_content)
     file.close()
+
+# Get Contentype ID
+###########################
+
+
+def contentype_from_url(path):
+    if path is None:
+        return None
+    path = '/'+'/'.join(path.split('/')[3:])
+    
+    app = resolve(path).app_names[0]
+    return ContentType.objects.get(app_label=app)

@@ -1,0 +1,33 @@
+<div class="kt-notification" id="id_activityScroll">
+    
+
+</div>
+<script id="activityScroll-scripting" >
+function activityPull() {
+    $.ajax({
+        url: "{% url 'activities:activity-list' %}",
+        type: "GET",
+        success: function(results) {
+            $.each(results.results, function() {
+                var input = `
+                <a href="#" class="kt-notification__item">
+                    <div class="kt-notification__item-icon">
+                    <i class="`+this.type+` kt-font-danger"></i>
+                    </div>
+                    <div class="kt-notification__item-details">
+                        <div class="kt-notification__item-title">
+                            `+this.note+`
+                        </div>
+                        <div class="kt-notification__item-time">
+                            `+$.timeago(this.time_created)+`
+                        </div>
+                    </div>
+                </a>
+                `;
+                $('#id_activityScroll').append(input);
+            });
+        }
+    });
+}
+activityPull();
+</script>

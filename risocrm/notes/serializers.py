@@ -1,9 +1,8 @@
 """
-    App serializer
-    Note Management
+    App Serializer
+    Staff Management
 """
 from risocrm.bases.serializers import BaseSerializer
-
 from risocrm.notes.models import Note
 
 

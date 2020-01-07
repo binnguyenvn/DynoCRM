@@ -20,8 +20,8 @@ config_patterns = [
 urlpatterns = [
     path('', index, name="list"),
     path('create', create, name="create"),
-    path('<int:pk>', edit, name="edit"),
-    path('view/<int:pk>', view, name="view"),
+    path('<str:pk>', edit, name="edit"),
+    path('view/<str:pk>', view, name="view"),
     path('delete', delete, name="delete"),
     path('api/', include(router.urls)),
     path('configs/', include(config_patterns)),

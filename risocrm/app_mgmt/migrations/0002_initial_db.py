@@ -11,6 +11,28 @@ def update_field_forward(apps, schema_editor):
     source = Choice.objects.get(name="Source")
     Dynafield.objects.create(
         module="Contact",
+        name="name",
+        type="CharField",
+        verbose_name="Name of contact",
+        fkmodule="",
+        on_delete="",
+        default=None,
+        max_length=20,
+        group="Contact Infomation",
+        option=None)
+    Dynafield.objects.create(
+        module="Contact",
+        name="email",
+        type="CharField",
+        verbose_name="Email",
+        fkmodule="",
+        on_delete="",
+        default=None,
+        max_length=20,
+        group="Contact Infomation",
+        option=None)
+    Dynafield.objects.create(
+        module="Contact",
         name="phone",
         type="CharField",
         verbose_name="Phone number",
