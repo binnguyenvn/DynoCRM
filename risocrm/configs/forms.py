@@ -76,6 +76,7 @@ FieldConfigFS = modelformset_factory(
         {
             'creator': Select(attrs={'class': 'form-control kt-select2 d-none'}),
             'last_modified_by': Select(attrs={'class': 'form-control kt-select2 d-none'}),
+            'field': Select(attrs={'class': 'form-control kt-select2'}),
             'module': TextInput(attrs={'class': 'form-control kt-select2 d-none'}),
             
         }

@@ -4,11 +4,12 @@
 """
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db import transaction
+
 from django.shortcuts import redirect, render
 
-from risocrm.app_mgmt.helpers import module_label_tuple, module_name_tuple
-from risocrm.configs.forms import ExternalConfigFS, ReportConfigFS, FieldConfigFS
+from risocrm.app_mgmt.helpers import field_both_name_tuple, module_label_tuple
+from risocrm.configs.forms import (ExternalConfigFS, FieldConfigFS,
+                                   ReportConfigFS)
 from risocrm.configs.models import ExternalConfig, FieldConfig, ReportConfig
 
 
@@ -98,7 +99,7 @@ def report(request, pk):
 
 @login_required
 def field(request, pk):
-    obj_list = FieldConfig.objects.filter(module=pk)
+    obj_list = FieldConfig.objects.filter(module=pk).filter(creator=request.user)
     context = {
         'page_title': 'Field Configs',
         'table_title': F'Update field configs of {pk}',
@@ -106,10 +107,11 @@ def field(request, pk):
         'go_back_desc': 'Back',
         'module': pk
     }
-    field = module_label_tuple()
+    field = field_both_name_tuple(pk)
     if request.method == 'GET':
         formset = FieldConfigFS(initial=[
             {
+                'creator': request.user,
                 'last_modified_by': request.user,
                 'module': pk
             }

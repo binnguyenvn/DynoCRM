@@ -11,7 +11,7 @@ from jinja2 import Template
 from risocrm.app_mgmt.models import Dynafield
 from risocrm.bases.global_variables import (BASE_MODEL, BOOL_TYPE, FILE_TYPE,
                                             NUMBER_TYPE, RELATION_TYPE,
-                                            STRING_TYPE, TIME_TYPE, ADDED_APP)
+                                            STRING_TYPE, TIME_TYPE, ADDED_APP, BASE_USER)
 
 
 def module_name_list():
@@ -99,12 +99,29 @@ def field_both_name_list(module, fields_name):
     return [{'val': field.name, 'name': field.verbose_name} for field in fields if field.name in fields_name]
 
 
+def field_both_name_tuple(module):
+    """
+        Get field name and verbose name of module and follow list field name
+    """
+    field_names = list(set(field_name_list(module)) ^ set(BASE_USER))
+    fields = field_list(module)
+    return [(field.name, field.verbose_name) for field in fields if field.name in field_names]
+
+
 def field_object(module):
     """
         Get field name and object of module
     """
     fields = field_list(module)
     return [(field, field.__class__.__name__) for field in fields]
+
+
+def get_field_object(module, name):
+    """
+        Get field name and object of module
+    """
+    fields = field_list(module)
+    return [field for field in fields if field.name == name][0]
 
 
 def field_detail(module, field):

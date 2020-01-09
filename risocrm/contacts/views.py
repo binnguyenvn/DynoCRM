@@ -8,6 +8,7 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
+from risocrm.configs.models import ExternalConfig, FieldConfig, ReportConfig
 from risocrm.contacts.models import Contact
 from risocrm.filters.models import Filter
 
@@ -41,6 +42,9 @@ def view(request, pk):
         'go_back_url': reverse('contacts:list'),
         'go_back_desc': 'Contacts list',
         'obj': obj,
+        'fields': FieldConfig.objects.filter(creator=request.user).filter(module='Contact'),
+        'externals': ExternalConfig.objects.filter(creator=request.user).filter(module='Contact'),
+        'reports': ReportConfig.objects.filter(creator=request.user).filter(module='Contact'),
     }
     return render(request, 'contacts-view.html', context)
 

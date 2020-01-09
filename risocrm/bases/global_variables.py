@@ -37,6 +37,7 @@ BASE_MODEL = [
 
     'ExternalConfig',
     'ReportConfig',
+    'FieldConfig',
 
     'Dynafield',
 
@@ -51,8 +52,6 @@ ADDED_APP = [
     'Activity',
     'Note',
 ]
-
-
 
 EXCLUDE_TYPE = [
     'ManyToManyRel',

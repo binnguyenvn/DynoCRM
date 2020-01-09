@@ -126,7 +126,10 @@
     load_widget();
   });
   load_widget();
-  moduleDefault({{module}});
+  moduleDefault("{{module}}");
+  initPage("{{module}}");
+  $('#id_form-__prefix__-creator').val({{request.user.id}}).change();
+  $('#id_form-__prefix__-last_modified_by').val({{request.user.id}}).change();  
 </script>
 
 {% endblock pagescript %}

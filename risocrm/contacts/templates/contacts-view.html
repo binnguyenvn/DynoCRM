@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static custom_tags %}
 {% block css %} {% endblock css %}
 {% block pagecss %}
 
@@ -121,54 +121,14 @@
             </div>
             <div class="kt-form kt-form--label-right">
                 <div class="kt-portlet__body">
+                    {% for field in fields %}
                     <div class="form-group form-group-xs row">
-                        <label class="col-4 col-form-label">Name:</label>
+                        <label class="col-4 col-form-label">{{field.object.verbose_name}}:</label>
                         <div class="col-8">
-                            <span class="form-control-plaintext kt-font-bolder">Loop Inc.</span>
+                            <span class="form-control-plaintext kt-font-bolder"> {% valuelookup obj field.field %} </span>
                         </div>
                     </div>
-                    <div class="form-group form-group-xs row">
-                        <label class="col-4 col-form-label">Location:</label>
-                        <div class="col-8">
-                            <span class="form-control-plaintext kt-font-bolder">London, UK.</span>
-                        </div>
-                    </div>
-                    <div class="form-group form-group-xs row">
-                        <label class="col-4 col-form-label">Revenue:</label>
-                        <div class="col-8">
-                            <span class="form-control-plaintext"><span class="kt-font-bolder">345,000M</span> &nbsp;<span class="kt-badge kt-badge--inline kt-badge--danger kt-badge--bold">Q4, 2019</span></span>
-                        </div>
-                    </div>
-                    <div class="form-group form-group-xs row">
-                        <label class="col-4 col-form-label">Phone:</label>
-                        <div class="col-8">
-                            <span class="form-control-plaintext kt-font-bolder">+456 7890456</span>
-                        </div>
-                    </div>
-                    <div class="form-group form-group-xs row">
-                        <label class="col-4 col-form-label">Email:</label>
-                        <div class="col-8">
-                            <span class="form-control-plaintext kt-font-bolder">
-                                <a href="#">info@loop.com</a>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="form-group form-group-xs row">
-                        <label class="col-4 col-form-label">Website:</label>
-                        <div class="col-8">
-                            <span class="form-control-plaintext kt-font-bolder">
-                                <a href="#">www.loop.com</a>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="form-group form-group-xs row">
-                        <label class="col-4 col-form-label">Contact Person:</label>
-                        <div class="col-8">
-                            <span class="form-control-plaintext kt-font-bolder">
-                                <a href="#">Nick Bold</a>
-                            </span>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

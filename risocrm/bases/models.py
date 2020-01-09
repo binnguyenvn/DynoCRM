@@ -13,10 +13,11 @@ class BaseModel(Model):
         Base
     """
     id = UUIDField(primary_key=True, default=uuid4, editable=False)
-    time_created = DateTimeField(auto_now_add=True, null=True)
-    time_modified = DateTimeField(auto_now=True, null=True)
+    time_created = DateTimeField(verbose_name="Created on", auto_now_add=True, null=True)
+    time_modified = DateTimeField(verbose_name="Last modified on", auto_now=True, null=True)
     creator = ForeignKey(
         'users.User',
+        verbose_name="Created by",
         related_name='%(app_label)s_%(class)s_creator',
         null=True,
         blank=True,
@@ -24,6 +25,7 @@ class BaseModel(Model):
     )
     last_modified_by = ForeignKey(
         'users.User',
+        verbose_name="Last modified by",
         related_name='%(app_label)s_%(class)s_last_modified',
         null=True,
         blank=True,
