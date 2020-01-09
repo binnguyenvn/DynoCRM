@@ -32,9 +32,21 @@
                         </a>
                     </li>
                     <li class="kt-nav__item">
-                        <a href="#" class="kt-nav__link">
+                        <a href="{% url 'configs:external' 'Contact' %}" class="kt-nav__link">
                             <i class="kt-nav__link-icon flaticon-interface-3"></i>
-                            <span class="kt-nav__link-text">View Config</span>
+                            <span class="kt-nav__link-text">External Config</span>
+                        </a>
+                    </li>
+                    <li class="kt-nav__item">
+                        <a href="{% url 'configs:report' 'Contact' %}" class="kt-nav__link">
+                            <i class="kt-nav__link-icon flaticon-interface-3"></i>
+                            <span class="kt-nav__link-text">Report Config</span>
+                        </a>
+                    </li>
+                    <li class="kt-nav__item">
+                        <a href="{% url 'configs:field' 'Contact' %}" class="kt-nav__link">
+                            <i class="kt-nav__link-icon flaticon-interface-3"></i>
+                            <span class="kt-nav__link-text">View Field Config</span>
                         </a>
                     </li>
                     <li class="kt-nav__item">

@@ -32,20 +32,27 @@ BASE_MODEL = [
     'Tile',
     'TileDetail',
 
-    'ContactConfig',
     'SystemConfig',
     'FilterConfig',
 
+    'ExternalConfig',
+    'ReportConfig',
+
     'Dynafield',
 
-    'Activity',
-
-    'Note',
+    'PushInformation',
+    'SubscriptionInfo',
 
     'Choice',
-    'ChoiceDetail'
-    
+    'ChoiceDetail',
 ]
+
+ADDED_APP = [
+    'Activity',
+    'Note',
+]
+
+
 
 EXCLUDE_TYPE = [
     'ManyToManyRel',

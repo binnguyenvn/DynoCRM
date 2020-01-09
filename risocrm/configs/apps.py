@@ -1,6 +1,6 @@
 """
     App Config
-    Personal Configs on system
+    Configs Management
 """
 from django.apps import AppConfig
 

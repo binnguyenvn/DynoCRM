@@ -1,7 +1,7 @@
 {% if user.is_authenticated or group %}
 <div class="kt-notification__item" style="cursor: pointer;">
     <div class="kt-notification__item-icon">
-        <i class="flaticon-network kt-font-success"></i>
+        <i class="flaticon2-bell-alarm-symbol kt-font-success"></i>
     </div>
     <div class="kt-notification__item-details">
         <div class="kt-notification__item-title" id="webpush-subscribe-button" {% if group %}data-group="{{ group }}"{% endif %} data-url="{{ webpush_save_url }}">

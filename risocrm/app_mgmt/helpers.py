@@ -11,7 +11,7 @@ from jinja2 import Template
 from risocrm.app_mgmt.models import Dynafield
 from risocrm.bases.global_variables import (BASE_MODEL, BOOL_TYPE, FILE_TYPE,
                                             NUMBER_TYPE, RELATION_TYPE,
-                                            STRING_TYPE, TIME_TYPE)
+                                            STRING_TYPE, TIME_TYPE, ADDED_APP)
 
 
 def module_name_list():
@@ -33,7 +33,7 @@ def module_name_tuple():
         Get all model in ContentType
     """
     modules = module_name_list()
-    modules = list(set(modules) ^ set(BASE_MODEL))
+    modules = list(set(modules) ^ set(BASE_MODEL+ADDED_APP))
     return [(name, name) for name in modules]
 
 
@@ -50,6 +50,20 @@ def module_object_list():
         Get all model name and object in ContentType
     """
     return [(m.model_class().__name__, m.model_class()) for m in ContentType.objects.all()]
+
+
+def module_label_list():
+    """
+        Get all model name and object in ContentType
+    """
+    return [{'label': m.app_label, 'name': m.model_class().__name__} for m in ContentType.objects.all() if m.model_class().__name__ not in BASE_MODEL]
+
+
+def module_label_tuple():
+    """
+        Get all model name and object in ContentType
+    """
+    return [(m.app_label, m.model_class().__name__) for m in ContentType.objects.all() if m.model_class().__name__ not in BASE_MODEL]
 
 
 def field_list(module):

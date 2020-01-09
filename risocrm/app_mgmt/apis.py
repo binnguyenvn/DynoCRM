@@ -7,9 +7,9 @@ from django.http import JsonResponse
 
 from risocrm.app_mgmt.helpers import (field_both_name_list, field_name_list,
                                       field_type, get_foreign_module,
-                                      module_name_list)
+                                      module_name_list, module_label_list)
 from risocrm.bases.commands import *
-from risocrm.bases.global_variables import BASE_MODEL, BASE_USER
+from risocrm.bases.global_variables import BASE_MODEL, BASE_USER, ADDED_APP
 
 
 @login_required
@@ -28,8 +28,16 @@ def get_module(request):
         Get list model name which can use filter
     """
     modules = module_name_list()
-    modules = list(set(modules) ^ set(BASE_MODEL))
+    modules = list(set(modules) ^ set(BASE_MODEL+ADDED_APP))
     return JsonResponse({'data': modules}, status=200)
+
+
+@login_required
+def get_label(request):
+    """
+        Get list model name which can use filter
+    """
+    return JsonResponse({'data': module_label_list()}, status=200)
 
 
 @login_required

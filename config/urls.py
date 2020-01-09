@@ -4,13 +4,13 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views import defaults as default_views
 
-
 setting_patterns = [
     path("apps/", include("risocrm.app_mgmt.urls")),
     path("filters/", include("risocrm.filters.urls")),
     path("choices/", include("risocrm.choices.urls")),
     # path("menus/", include("risocrm.menus.urls")),
     path("notices/", include("risocrm.notices.urls")),
+    path("configs/", include("risocrm.configs.urls")),
 ]
 
 urlpatterns = [
@@ -23,14 +23,14 @@ urlpatterns = [
     # System
     path("settings/", include(setting_patterns)),
     path("accounts/", include("allauth.urls")),
-    path("notes/", include("risocrm.notes.urls")),
-    path("activities/", include("risocrm.activities.urls")),
-    
+
     # NOTIFICATION
     path("webpush/", include("webpush.urls")),
     # Your stuff: custom urls includes go here
     # Contact management
     path("contacts/", include("risocrm.contacts.urls")),
+    path("notes/", include("risocrm.notes.urls")),
+    path("activities/", include("risocrm.activities.urls")),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

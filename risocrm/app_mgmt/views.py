@@ -14,7 +14,7 @@ from risocrm.app_mgmt.helpers import (field_detail, field_object,
                                       module_name_full_tuple, module_name_list,
                                       module_name_tuple)
 from risocrm.app_mgmt.models import Dynafield
-from risocrm.bases.global_variables import BASE_MODEL
+from risocrm.bases.global_variables import BASE_MODEL, ADDED_APP
 
 
 @login_required()
@@ -30,7 +30,7 @@ def index(request):
     }
     model_list = module_name_list()
     # Remove Module of System
-    content['models'] = list(set(model_list) ^ set(BASE_MODEL))
+    content['models'] = list(set(model_list) ^ set(BASE_MODEL+ ADDED_APP))
 
     return render(request, 'app_mgmt-list.html', content)
 

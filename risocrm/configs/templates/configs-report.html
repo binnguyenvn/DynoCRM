@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %} {% endblock css %}
+{% block pagecss %}
+<link href="{% static 'plugins/custom/datatables/datatables.bundle.css' %}" rel="stylesheet" type="text/css" /> {% endblock pagecss %} {% block toolbar %} {% endblock toolbar %} {% block content %}
+<div class="kt-portlet kt-portlet--mobile">
+<form action="{{request.path}}" method="post" class="validated">
+     {% csrf_token %}
+     
+    <div class="kt-portlet__head kt-portlet__head--lg">
+        <div class="kt-portlet__head-label">
+            <span class="kt-portlet__head-icon">
+                <i class="kt-font-brand flaticon2-line-chart"></i>
+            </span>
+            <h3 class="kt-portlet__head-title">
+                {{table_title}}
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-wrapper">
+                <div class="kt-portlet__head-actions">
+                    &nbsp;
+                    <button type="submit" class="btn btn-brand btn-elevate btn-icon-sm">
+                        <i class="la la-plus"></i> Save & edit
+                    </button>
+                    &nbsp;
+                    <a href="{{go_back_url}}" class="btn btn-danger btn-elevate btn-icon-sm" style="color: white;">
+                        <i class="la la-trash"></i> Cancel
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+
+        <!--begin: Datatable -->
+        <div id="kt_table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+            <div class="row">
+                
+                <div class="col-sm-12">
+                <div class="kt-form kt-form--label-right contain_form">
+                    {{ formset.management_form }}
+                    <div class="kt-portlet__body detailformsetdiv">
+                    {% for dtform in formset %}
+                      <div class="d-none">
+                      {{dtform.id}}
+                      {{dtform.creator}}
+                      {{dtform.last_modified_by}}
+                      {{dtform.module}}
+                      </div>
+                      <div class="form-group row validated rowDetail-{{forloop.counter0}}">
+                        <div class="col-lg-3">
+                          <label class="form-control-label">Name:</label>
+                          {{dtform.name}}
+                          {% for item in dtform.name.errors %}
+                          <div class="invalid-feedback">{{item}}</div>
+                          {% endfor %}
+                          <span class="form-text text-muted">Enter report name</span>
+                        </div>
+                        <div class="col-lg-3">
+                          <label class="form-control-label">Description:</label>
+                          {{dtform.desc}}
+                          {% for item in dtform.desc.errors %}
+                          <div class="invalid-feedback">{{item}}</div>
+                          {% endfor %}
+                          <span class="form-text text-muted">Report description</span>
+                        </div>
+                        <div class="col-lg-3">
+                          <label class="form-control-label">Field:</label>
+                          {{dtform.field}}
+                          {% for item in dtform.field.errors %}
+                          <div class="invalid-feedback">{{item}}</div>
+                          {% endfor %}
+                          <span class="form-text text-muted">Select field</span>
+                        </div>
+                        <div class="col-lg-2">
+                          <label class="form-control-label">Formular:</label>
+                          {{dtform.type}}
+                          {% for item in dtform.type.errors %}
+                          <div class="invalid-feedback">{{item}}</div>
+                          {% endfor %}
+                          <span class="form-text text-muted">Select formular</span>
+                        </div>
+                        <div class="col-lg-1">
+                          <label class="">Delete</label><br/>
+                            <label data-item="{{forloop.counter0}}"
+                              class="btn-delete-item btn btn-danger btn-icon">
+                              <i class="fa flaticon-delete-2"></i>
+                              <span hidden>{{dtform.DELETE}}</span>
+                        </label>
+                        </div>
+                      </div>
+                      {% endfor %}
+                    </div>
+                    <div class="kt-portlet__foot">
+                      <div class="row align-items-center">
+                        <div class="nullDivDetail col-lg-6 m--valign-middle" style="display:none">
+                          <div class="form-group row validated rowDetail-__prefix__">
+                            <div class="d-none">
+                            {{formset.empty_form.id}}
+                            {{formset.empty_form.creator}}
+                            {{formset.empty_form.last_modified_by}}
+                            {{formset.empty_form.module}}
+                            </div>
+                            <div class="col-lg-3">
+                              <label class="form-control-label">Name:</label>
+                              {{formset.empty_form.name}}
+                              {% for item in formset.empty_form.name.errors %}
+                              <div class="invalid-feedback">{{item}}</div>
+                              {% endfor %}
+                              <span class="form-text text-muted">Enter report name</span>
+                            </div>
+                            <div class="col-lg-3">
+                              <label class="form-control-label">Description:</label>
+                              {{formset.empty_form.desc}}
+                              {% for item in formset.empty_form.desc.errors %}
+                              <div class="invalid-feedback">{{item}}</div>
+                              {% endfor %}
+                              <span class="form-text text-muted">Report description</span>
+                            </div>
+                            <div class="col-lg-3">
+                              <label class="form-control-label">Field:</label>
+                              {{formset.empty_form.field}}
+                              {% for item in formset.empty_form.field.errors %}
+                              <div class="invalid-feedback">{{item}}</div>
+                              {% endfor %}
+                              <span class="form-text text-muted">Select field</span>
+                            </div>
+                            <div class="col-lg-2">
+                              <label class="form-control-label">Formular:</label>
+                              {{formset.empty_form.type}}
+                              {% for item in formset.empty_form.type.errors %}
+                              <div class="invalid-feedback">{{item}}</div>
+                              {% endfor %}
+                              <span class="form-text text-muted">Select formular</span>
+                            </div>
+                            <div class="col-lg-1">
+                              <label class="">Delete</label><br/>
+                                <label data-item="__prefix__"
+                                  class="btn-delete-item btn btn-danger btn-icon">
+                                  <i class="fa flaticon-delete-2"></i>
+                                  <span hidden>{{form.DELETE}}</span>
+                            </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-6 kt-align-right">
+                          <a class="addBtnDetailFS btn btn-outline-success btn-sm btn-icon btn-icon-md">
+                            <i class="flaticon2-add-1"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--end: Datatable -->
+    </div>
+
+</form>
+</div>
+<!--begin::Modal-->
+
+{% endblock content %} {% block javascript %}
+{% comment %} <script type="text/javascript" src="{% static 'plugins/custom/datatables/datatables.bundle.js' %}"></script> {% endcomment %}
+<script type="text/javascript" src="{% static 'js/riso/dynamic-formset.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/riso/configs/report.js' %}"></script>
+{% endblock javascript %} {% block pagescript %}
+<script>
+  deleteFormSet();
+  addFormSet(function(form) {
+    load_widget();
+  });
+  load_widget();
+</script>
+
+{% endblock pagescript %}
