@@ -9,6 +9,7 @@ def update_user_forward(apps, schema_editor):
     Choice.objects.create(name="City")
     Choice.objects.create(name="Rate")
     Choice.objects.create(name="Source")
+    Choice.objects.create(name="Job")
 
 
 def update_user_backward(apps, schema_editor):

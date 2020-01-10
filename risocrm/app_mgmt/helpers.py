@@ -188,7 +188,6 @@ def field_line(field, module):
             {_default}blank=True)'
     if field.type in TIME_TYPE:
         return F'{field.name} = {field.type}(\
-            auto_now=True,\
             auto_now_add=True,\
             verbose_name="{field.verbose_name}",\
             {_default}null=True, blank=True)'

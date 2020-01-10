@@ -26,5 +26,7 @@ class Dynafield(Model):
 
     option = ForeignKey("choices.Choice", related_name="field_choices", on_delete=CASCADE, null=True, blank=True)
 
+    is_base = BooleanField(default=False)
+
     def __str__(self):
         return F'Field {self.name} of {self.module}'

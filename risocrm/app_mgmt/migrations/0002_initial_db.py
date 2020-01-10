@@ -9,6 +9,7 @@ def update_field_forward(apps, schema_editor):
     city = Choice.objects.get(name="City")
     rate = Choice.objects.get(name="Rate")
     source = Choice.objects.get(name="Source")
+    job = Choice.objects.get(name="Job")
     Dynafield.objects.create(
         module="Contact",
         name="name",
@@ -19,7 +20,8 @@ def update_field_forward(apps, schema_editor):
         default=None,
         max_length=20,
         group="Contact Infomation",
-        option=None)
+        option=None,
+        is_base=True)
     Dynafield.objects.create(
         module="Contact",
         name="email",
@@ -30,7 +32,8 @@ def update_field_forward(apps, schema_editor):
         default=None,
         max_length=20,
         group="Contact Infomation",
-        option=None)
+        option=None,
+        is_base=True)
     Dynafield.objects.create(
         module="Contact",
         name="phone",
@@ -41,7 +44,8 @@ def update_field_forward(apps, schema_editor):
         default=None,
         max_length=20,
         group="Contact Infomation",
-        option=None)
+        option=None,
+        is_base=True)
     Dynafield.objects.create(
         module="Contact",
         name="address",
@@ -52,7 +56,8 @@ def update_field_forward(apps, schema_editor):
         default=None,
         max_length=1000,
         group="Contact Infomation",
-        option=None)
+        option=None,
+        is_base=True)
     Dynafield.objects.create(
         module="Contact",
         name="city",
@@ -63,7 +68,8 @@ def update_field_forward(apps, schema_editor):
         default=None,
         max_length=None,
         group="Contact Infomation",
-        option=city)
+        option=city,
+        is_base=True)
     Dynafield.objects.create(
         module="Contact",
         name="rate",
@@ -74,7 +80,20 @@ def update_field_forward(apps, schema_editor):
         default=None,
         max_length=None,
         group="Contact Infomation",
-        option=rate)
+        option=rate,
+        is_base=True)
+    Dynafield.objects.create(
+        module="Contact",
+        name="job",
+        type="CharField",
+        verbose_name="Job",
+        fkmodule="Choice",
+        on_delete="DO_NOTHING",
+        default=None,
+        max_length=None,
+        group="Contact Infomation",
+        option=job,
+        is_base=True)
     Dynafield.objects.create(
         module="Contact",
         name="source",
@@ -85,7 +104,20 @@ def update_field_forward(apps, schema_editor):
         default=None,
         max_length=None,
         group="Contact Infomation",
-        option=source)
+        option=source,
+        is_base=True)
+    Dynafield.objects.create(
+        module="Contact",
+        name="dob",
+        type="DateField",
+        verbose_name="Date of Birth",
+        fkmodule="",
+        on_delete="",
+        default=None,
+        max_length=None,
+        group="Contact Infomation",
+        option=None,
+        is_base=True)
     Dynafield.objects.create(
         module="Contact",
         name="facebook",
@@ -96,7 +128,8 @@ def update_field_forward(apps, schema_editor):
         default=None,
         max_length=100,
         group="Facebook Infomation",
-        option=None)
+        option=None,
+        is_base=True)
     Dynafield.objects.create(
         module="Contact",
         name="facebook_url",
@@ -107,7 +140,21 @@ def update_field_forward(apps, schema_editor):
         default=None,
         max_length=200,
         group="Facebook Infomation",
-        option=None)
+        option=None,
+        is_base=True)
+    Dynafield.objects.create(
+        module="Contact",
+        name="facebook_uid",
+        type="CharField",
+        verbose_name="Facebook UID",
+        fkmodule="",
+        on_delete="",
+        default=None,
+        max_length=200,
+        group="Facebook Infomation",
+        option=None,
+        is_base=True)
+    
 
 
 def update_field_backward(apps, schema_editor):
