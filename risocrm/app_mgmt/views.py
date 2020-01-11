@@ -9,12 +9,11 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
 from risocrm.app_mgmt.forms import DynafieldForm
-from risocrm.app_mgmt.helpers import (field_detail, field_object,
-                                      get_group_distinct_tuple, model_render,
+from risocrm.app_mgmt.helpers import (get_group_distinct_tuple, model_render,
                                       module_name_full_tuple, module_name_list,
                                       module_name_tuple)
 from risocrm.app_mgmt.models import Dynafield
-from risocrm.bases.global_variables import BASE_MODEL, ADDED_APP
+from risocrm.bases.global_variables import ADDED_APP, BASE_MODEL
 
 
 @login_required()

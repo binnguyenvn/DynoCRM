@@ -11,10 +11,6 @@ function load_widget() {
 
 }
 
-function moduleDefault(value) {
-    $('#id_form-__prefix__-module').val(value);
-}
-
 function initPage(module) {
     $.ajax({
         url: "/settings/apps/api/get_field?model=" + module,

@@ -4,7 +4,7 @@
 """
 from django.db.models import (CASCADE, BooleanField, CharField, ForeignKey,
                               IntegerField, Model, TextField)
-
+from django.contrib.contenttypes.models import ContentType
 from risocrm.bases.global_variables import (FIELD_TYPE_CHOICES,
                                             ON_DELETE_CHOICES)
 
@@ -30,3 +30,7 @@ class Dynafield(Model):
 
     def __str__(self):
         return F'Field {self.name} of {self.module}'
+
+    def object(self):
+        ctt = ContentType.objects.get(model=self.module.lower()).model_class()
+        return [field for field in ctt._meta.concrete_fields if field.name == self.name][0]

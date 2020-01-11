@@ -63,12 +63,13 @@
                                 <td>{{obj.verbose_name}}</td>
                                 <td>{{obj.type}}</td>
                                 <td>
+                                {% if not obj.is_base %}
                                 <a class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit" href="{% url 'app_mgmt:edit' obj.id %}">
                                     <i class="la la-edit"></i>
                                 </a>
+                                {% endif %}
                                 </td>
                             </tr>
-                            {% include 'modals/delete.html' with delete_url=delete_url obj_id=obj.id %}
                             {% endfor %}
                         </tbody>
                     </table>

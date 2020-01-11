@@ -27,6 +27,7 @@ def external(request, pk):
     if request.method == 'GET':
         formset = ExternalConfigFS(initial=[
             {
+                'creator': request.user,
                 'last_modified_by': request.user,
                 'module': pk
             }
@@ -65,10 +66,11 @@ def report(request, pk):
         'go_back_desc': 'Back',
         'module': pk
     }
-    report = module_label_tuple()
+    report = field_both_name_tuple(pk)
     if request.method == 'GET':
         formset = ReportConfigFS(initial=[
             {
+                'creator': request.user,
                 'last_modified_by': request.user,
                 'module': pk
             }

@@ -26,17 +26,6 @@ $('#id_module').on('change', function() {
 });
 
 
-$('#id_module').select2({
-    placeholder: "Select Module",
-});
-$('#id_field_list').select2({
-    placeholder: "Select multipe Field",
-    tags: true
-});
-$('#id_order_by').select2({
-    placeholder: "Order by",
-});
-
 function changeFieldInput(callback = function(form) {}) {
     $(document).delegate('.field-name', 'change', function(e) {
         var form = $(e.target).parents('.contain_form');
@@ -262,6 +251,7 @@ function load_widget() {
 
     });
 }
+
 $(document).ready(function() {
     $('.detailformsetdiv input[id$="-value"]').each(function(idx, el) {
         if (el.value.includes(',')) {

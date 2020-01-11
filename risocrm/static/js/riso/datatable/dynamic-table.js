@@ -6,7 +6,7 @@
             baseUrl: "",
             tableSelector: '',
             columnIndex: {
-                targets: 0,
+                targets: 1,
                 orderable: false,
                 render: function(data, type, full, meta) {
                     return `
@@ -18,7 +18,7 @@
                 },
             },
             columnAction: {
-                targets: -1,
+                targets: 0,
                 title: 'Actions',
                 orderable: false,
                 render: function(data, type, full, meta) {
@@ -57,8 +57,9 @@
                     style: 'multi',
                     selector: 'td:first-child .kt-checkable',
                 },
+                responsive: true,
                 headerCallback: function(thead, data, start, end, display) {
-                    thead.getElementsByTagName('th')[0].innerHTML = `
+                    thead.getElementsByTagName('th')[1].innerHTML = `
                         <label class="kt-checkbox kt-checkbox--single kt-checkbox--solid">
                             <input type="checkbox" value="" class="kt-group-checkable">
                             <span></span>
@@ -96,6 +97,7 @@
         setAutoColumns: function() {
             var that = this;
             var options = that.tableOptions;
+            options.columns.push({});
             $.each(that.dataSet[0], function(k, v) {
                 var found = $.grep(options.columns, function(n, i) {
                     return k === n.data;
@@ -104,7 +106,7 @@
                     options.columns.push({ data: k, title: k });
                 }
             });
-            options.columns.push({});
+
         },
 
         filterTable: function(url) {

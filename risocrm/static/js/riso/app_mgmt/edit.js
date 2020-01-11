@@ -1,14 +1,3 @@
-$('#id_type').select2({
-    placeholder: "Select type"
-});
-$('#id_group').select2({
-    placeholder: "Select Group",
-    tags: true
-});
-$('#id_module').select2({
-    placeholder: "Select module"
-});
-
 $(document).delegate('#id_option', 'change', function(e) {
     $.ajax({
         url: '/settings/choices/api/choice_childs/' + $('#id_option').val(),

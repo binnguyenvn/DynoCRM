@@ -487,9 +487,6 @@ License: You must have a valid license purchased only from themeforest(the above
     // demo loading
     var loading = new KTDialog({ 'type': 'loader', 'placement': 'top center', 'message': 'Loading ...' });
     loading.show();
-    $( document ).ready(function() {
-        loading.hide();
-    });
     function make_migration() {
         ajax_get("{% url 'app_mgmt:make_migrations' %}");
     }
@@ -509,7 +506,6 @@ License: You must have a valid license purchased only from themeforest(the above
     <script >
         $( document ).ready(function() {
             $('#webpush-subscribe-button').click();
-
             $('script[id$="-scripting"]').each(function(idx, el){
                 var script = document.createElement("script")
                 script.type = "text/javascript";
@@ -517,6 +513,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 $('#id_mainscript')[0].appendChild(script);
             });
             
+            loading.hide();
         });
     </script>
     <div id='id_mainscript'>

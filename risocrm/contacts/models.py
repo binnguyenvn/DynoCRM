@@ -23,7 +23,7 @@ class Contact(BaseModel):
                      on_delete=DO_NOTHING, verbose_name="Job", null=True, blank=True)
     source = ForeignKey("choices.ChoiceDetail", related_name="%(app_label)s_%(class)s_source",
                         on_delete=DO_NOTHING, verbose_name="Source", null=True, blank=True)
-    dob = DateField(auto_now_add=True, verbose_name="Date of Birth", null=True, blank=True)
+    dob = DateField(auto_now_add=False, verbose_name="Date of Birth", null=True, blank=True, editable=True)
     facebook = CharField(max_length=100, verbose_name="Facebook name", null=True, blank=True)
     facebook_url = CharField(max_length=200, verbose_name="Facebook url", null=True, blank=True)
     facebook_uid = CharField(max_length=200, verbose_name="Facebook UID", null=True, blank=True)

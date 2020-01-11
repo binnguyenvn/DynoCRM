@@ -100,7 +100,7 @@
                             {{formset.empty_form.id}}
                             {{formset.empty_form.creator}}
                             {{formset.empty_form.last_modified_by}}
-                            {{formset.empty_form.module}}
+                            <input type="text" name="form-__prefix__-module" value="{{module}}" class="form-control kt-select2 d-none" maxlength="200" id="id_form-__prefix__-module">
                             </div>
                             <div class="col-lg-3">
                               <label class="form-control-label">Name:</label>
@@ -166,14 +166,18 @@
 {% endblock content %} {% block javascript %}
 {% comment %} <script type="text/javascript" src="{% static 'plugins/custom/datatables/datatables.bundle.js' %}"></script> {% endcomment %}
 <script type="text/javascript" src="{% static 'js/riso/dynamic-formset.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/riso/configs/field.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/riso/configs/report.js' %}"></script>
 {% endblock javascript %} {% block pagescript %}
 <script>
   deleteFormSet();
   addFormSet(function(form) {
     load_widget();
+    rp_load_widget();
   });
   load_widget();
+  rp_load_widget();
+  initPage("{{module}}");
 </script>
 
 {% endblock pagescript %}

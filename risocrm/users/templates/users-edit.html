@@ -58,10 +58,10 @@
                                     {% endfor %}
                                 </div>
                             </div>
-                            <div class="form-group row {% if request.user.groups.all.0.id > 1 %}d-none{% endif %}">
+                            <div class="form-group row {% if request.user.groups.all.0.id > 1 %}d-none{% endif %} ">
                                 <label class="col-xl-3 col-lg-3 col-form-label">Group</label>
                                 <div class="col-lg-9 col-xl-6">
-                                    <select name="groups" id="id_groups" class="form-control">
+                                    <select name="groups" id="id_groups" class="form-control kt-select2">
                                         <option value="">---------</option>
                                         <option value="1" {% if user.groups.all.0.id == 1 %}selected{% endif %}>
                                             Administrator</option>
@@ -163,3 +163,6 @@
     </div>
 </div>
 {% endblock user_content %}
+{% block pagescript %}
+<script type="text/javascript" src="{% static 'js/riso/jquery.render.js' %}"></script>
+{% endblock pagescript %}

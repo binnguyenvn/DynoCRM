@@ -28,8 +28,8 @@ class FilterDetailForm(ModelForm):
         model = FilterDetail
         fields = '__all__'
         widgets = {
-            'field_name': Select(attrs={'class': 'field-name form-control kt-select2'}),
-            'operator': Select(attrs={'class': 'field-operator form-control kt-select2'}),
+            'field_name': Select(attrs={'class': 'field-name form-control'}),
+            'operator': Select(attrs={'class': 'field-operator form-control'}),
             'value': TextInput(attrs={'class': 'field-value form-control'}),
             'private': CheckboxInput(),
         }

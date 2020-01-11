@@ -57,6 +57,14 @@
                           {% endfor %}
                           <span class="form-text text-muted">Please select External module</span>
                         </div>
+                        <div class="col-lg-3">
+                          <label class="form-control-label">Icon:</label>
+                          {{dtform.icon}}
+                          {% for item in dtform.icon.errors %}
+                          <div class="invalid-feedback">{{item}}</div>
+                          {% endfor %}
+                          <span class="form-text text-muted">Select icon <a href='https://keenthemes.com/keen/preview/demo5/components/icons/flaticon.html'> here</a></span>
+                        </div>
                         <div class="col-lg-1">
                           <label class="">Delete</label><br/>
                             <label data-item="{{forloop.counter0}}"
@@ -76,7 +84,7 @@
                             {{formset.empty_form.id}}
                             {{formset.empty_form.creator}}
                             {{formset.empty_form.last_modified_by}}
-                            {{formset.empty_form.module}}
+                            <input type="text" name="form-__prefix__-module" value="{{module}}" class="form-control kt-select2 d-none" maxlength="200" id="id_form-__prefix__-module">
                             </div>
                             <div class="col-lg-3">
                               <label class="form-control-label">Module:</label>
@@ -85,6 +93,14 @@
                               <div class="invalid-feedback">{{item}}</div>
                               {% endfor %}
                               <span class="form-text text-muted">Please select External module</span>
+                            </div>
+                            <div class="col-lg-3">
+                              <label class="form-control-label">Icon:</label>
+                              {{formset.empty_form.icon}}
+                              {% for item in dtform.icon.errors %}
+                              <div class="invalid-feedback">{{item}}</div>
+                              {% endfor %}
+                              <span class="form-text text-muted">Select icon <a href='https://keenthemes.com/keen/preview/demo5/components/icons/flaticon.html'> here</a></span>
                             </div>
                             <div class="col-lg-1">
                               <label class="">Delete</label><br/>
@@ -126,7 +142,6 @@
     load_widget();
   });
   load_widget();
-  moduleDefault({{module}});
 </script>
 
 {% endblock pagescript %}

@@ -153,6 +153,18 @@ def get_group_distinct_tuple(module=""):
     return [(m, m) for m in Dynafield.objects.all().values_list('group', flat=True).distinct()]
 
 
+def get_group_distinct_list(module=""):
+    if module != "":
+        return [m for m in Dynafield.objects.filter(module=module).values_list('group', flat=True).distinct()]
+    return [m for m in Dynafield.objects.all().values_list('group', flat=True).distinct()]
+
+
+def get_field_distinct_list(module="", group=""):
+    if module != "":
+        return [m for m in Dynafield.objects.filter(module=module).filter(group=group).values_list('name', flat=True).distinct()]
+    return [m for m in Dynafield.objects.all().values_list('group', flat=True).distinct()]
+
+
 # Tool for Dynamic and changing Model
 ####################################
 def field_line(field, module):
@@ -188,7 +200,8 @@ def field_line(field, module):
             {_default}blank=True)'
     if field.type in TIME_TYPE:
         return F'{field.name} = {field.type}(\
-            auto_now_add=True,\
+            auto_now_add=False,\
+            editable=True,\
             verbose_name="{field.verbose_name}",\
             {_default}null=True, blank=True)'
     if field.type in NUMBER_TYPE:

@@ -76,7 +76,7 @@
                             {{formset.empty_form.id}}
                             {{formset.empty_form.creator}}
                             {{formset.empty_form.last_modified_by}}
-                            {{formset.empty_form.module}}
+                            <input type="text" name="form-__prefix__-module" value="{{module}}" class="form-control kt-select2 d-none" maxlength="200" id="id_form-__prefix__-module">
                             </div>
                             <div class="col-lg-3">
                               <label class="form-control-label">Module:</label>
@@ -126,10 +126,7 @@
     load_widget();
   });
   load_widget();
-  moduleDefault("{{module}}");
   initPage("{{module}}");
-  $('#id_form-__prefix__-creator').val({{request.user.id}}).change();
-  $('#id_form-__prefix__-last_modified_by').val({{request.user.id}}).change();  
 </script>
 
 {% endblock pagescript %}

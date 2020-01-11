@@ -14,10 +14,10 @@ class TileForm(ModelForm):
         model = Tile
         fields = '__all__'
         widgets = {
-            'dashboard': Select(attrs={'class': 'form-control'}),
-            'type': Select(attrs={'class': 'form-control'}),
-            'module': Select(attrs={'class': 'form-control'}),
-            'field': Select(attrs={'class': 'form-control'}),
+            'dashboard': Select(),
+            'type': Select(),
+            'module': Select(),
+            'field': Select(),
         }
 
 
@@ -26,9 +26,9 @@ class TileDetailForm(ModelForm):
         model = TileDetail
         fields = '__all__'
         widgets = {
-            'type': Select(attrs={'class': 'form-control'}),
-            'field': Select(attrs={'class': 'form-control'}),
-            'formula': TextInput(attrs={'class': 'form-control'}),
+            'type': Select(),
+            'field': Select(),
+            'formula': TextInput(),
         }
 
 

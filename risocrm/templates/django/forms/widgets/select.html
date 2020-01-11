@@ -1,5 +1,42 @@
-<select name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>{% for group_name, group_choices, group_index in widget.optgroups %}{% if group_name %}
-  <optgroup label="{{ group_name }}">{% endif %}{% for option in group_choices %}
-  {% include option.template_name with widget=option %}{% endfor %}{% if group_name %}
-  </optgroup>{% endif %}{% endfor %}
-</select>
+
+{% if widget.attrs.fk %}
+  <div class="input-group">
+    <div class="input-group-prepend">
+        <a href="{{widget.attrs.created}}" target="_blank" class="input-group-text"><i class="flaticon-plus"></i></a>
+    </div>
+
+  <select name="{{ widget.name }}" {% include "django/forms/widgets/attrs.html" %} >
+    {% for group_name, group_choices, group_index in widget.optgroups %}
+      {% if group_name %}
+        <optgroup label="{{ group_name }}">
+      {% endif %}
+      {% for option in group_choices %}
+        {% include option.template_name with widget=option %}
+      {% endfor %}
+      {% if group_name %}
+      </optgroup>
+      {% endif %}
+    {% endfor %}
+  </select>
+    
+    <div class="input-group-append">
+        <button onclick="refreshField('{{ widget.name }}', '{{widget.attrs.refresh}}')" class="input-group-text" type="button" style="color:white;"><i class="flaticon-refresh"></i></button>
+    </div>
+</div>
+{% else %}
+  <select name="{{ widget.name }}" {% include "django/forms/widgets/attrs.html" %} >
+    {% for group_name, group_choices, group_index in widget.optgroups %}
+      {% if group_name %}
+        <optgroup label="{{ group_name }}">
+      {% endif %}
+      {% for option in group_choices %}
+        {% include option.template_name with widget=option %}
+      {% endfor %}
+      {% if group_name %}
+      </optgroup>
+      {% endif %}
+    {% endfor %}
+  </select>
+{% endif %}
+
+

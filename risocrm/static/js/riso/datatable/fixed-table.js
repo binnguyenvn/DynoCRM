@@ -52,6 +52,7 @@
                     style: 'multi',
                     selector: 'td:first-child .kt-checkable',
                 },
+                responsive: true,
                 headerCallback: function(thead, data, start, end, display) {
                     thead.getElementsByTagName('th')[0].innerHTML = `
                         <label class="kt-checkbox kt-checkbox--single kt-checkbox--solid">

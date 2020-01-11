@@ -65,7 +65,7 @@
                     <div class="form-group row">
                         <div class="col-lg-4">
                             <label class="">Group:</label>
-                            <select name="groups" id="id_groups" class="form-control">
+                            <select name="groups" id="id_groups" class="form-control kt-select2">
                                 <option value="">---------</option>
                                 <option value="1">Administrator</option>
                                 <option value="2">Manager</option>
@@ -111,20 +111,6 @@
 <!--begin::Modal-->
 
 {% endblock content %} {% block javascript %}
-{% comment %} <script type="text/javascript" src="{% static 'plugins/custom/datatables/datatables.bundle.js' %}"></script> {% endcomment %}
-<script type="text/javascript" src="{% static 'js/riso/dynamic-formset.js' %}"></script>
 {% endblock javascript %} {% block pagescript %}
-<script>
-  $('#id_groups').select2({
-    placeholder: "Input Group name",
-    tags: true
-  });
-  $('#id_app').select2({
-    placeholder: "Select App",
-  });
-  $('#id_parent').select2({
-    placeholder: "Select parent",
-  });
-</script>
-
+<script type="text/javascript" src="{% static 'js/riso/jquery.render.js' %}"></script>
 {% endblock pagescript %}

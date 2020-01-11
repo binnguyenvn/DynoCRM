@@ -14,7 +14,7 @@ class ExternalConfigForm(ModelForm):
         model = ExternalConfig
         fields = '__all__'
         widgets = {
-            'external': Select(attrs={'class': 'form-control kt-select2'}),
+            'external': Select(),
         }
 
 
@@ -24,7 +24,7 @@ ExternalConfigFS = modelformset_factory(
     extra=0,
     widgets=
         {
-            'external': Select(attrs={'class': 'form-control kt-select2'}),
+            'external': Select(),
             'creator': Select(attrs={'class': 'form-control kt-select2 d-none'}),
             'last_modified_by': Select(attrs={'class': 'form-control kt-select2 d-none'}),
             'module': TextInput(attrs={'class': 'form-control kt-select2 d-none'}),
@@ -38,8 +38,8 @@ class ReportConfigForm(ModelForm):
         model = ReportConfig
         fields = '__all__'
         widgets = {
-            'field': Select(attrs={'class': 'form-control kt-select2'}),
-            'type': Select(attrs={'class': 'form-control kt-select2'}),
+            'field': Select(),
+            'type': Select(),
         }
 
 
@@ -52,7 +52,8 @@ ReportConfigFS = modelformset_factory(
             'creator': Select(attrs={'class': 'form-control kt-select2 d-none'}),
             'last_modified_by': Select(attrs={'class': 'form-control kt-select2 d-none'}),
             'module': TextInput(attrs={'class': 'form-control kt-select2 d-none'}),
-            
+            'field': Select(),
+            'type': Select(),
         }
     )
 
@@ -63,8 +64,8 @@ class FieldConfigForm(ModelForm):
         model = FieldConfig
         fields = '__all__'
         widgets = {
-            'field': Select(attrs={'class': 'form-control kt-select2'}),
-            'type': Select(attrs={'class': 'form-control kt-select2'}),
+            'field': Select(),
+            'type': Select(),
         }
 
 
@@ -76,7 +77,7 @@ FieldConfigFS = modelformset_factory(
         {
             'creator': Select(attrs={'class': 'form-control kt-select2 d-none'}),
             'last_modified_by': Select(attrs={'class': 'form-control kt-select2 d-none'}),
-            'field': Select(attrs={'class': 'form-control kt-select2'}),
+            'field': Select(),
             'module': TextInput(attrs={'class': 'form-control kt-select2 d-none'}),
             
         }

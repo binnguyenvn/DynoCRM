@@ -4,10 +4,6 @@ function load_widget() {
     });
 }
 
-function moduleDefault(value) {
-    $('#id_form-__prefix__-module').val(value);
-}
-
 $.ajax({
     url: "/settings/apps/api/get_label",
     type: "GET",

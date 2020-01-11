@@ -1,6 +1,3 @@
-$('#id_groups').select2({
-    placeholder: "Select Group",
-});
 var avatar;
 var offcanvas;
 
