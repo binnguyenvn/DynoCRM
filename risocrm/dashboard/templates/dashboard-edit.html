@@ -3,9 +3,10 @@
 {% block css %} {% endblock css %}
 {% block pagecss %}
 <link href="{% static 'plugins/custom/datatables/datatables.bundle.css' %}" rel="stylesheet" type="text/css" /> {% endblock pagecss %} {% block toolbar %} {% endblock toolbar %} {% block content %}
-<div class="kt-portlet kt-portlet--mobile">
 <form action="{{request.path}}" method="post" class="validated">
      {% csrf_token %}
+<div class="kt-portlet kt-portlet--mobile kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile">
+
     <div class="kt-portlet__head kt-portlet__head--lg">
         <div class="kt-portlet__head-label">
             <span class="kt-portlet__head-icon">
@@ -210,10 +211,9 @@
         <!--end: Datatable -->
     </div>
 
-</form>
 </div>
 <!--begin::Modal-->
-
+</form>
 {% endblock content %} {% block javascript %}
 {% comment %} <script type="text/javascript" src="{% static 'plugins/custom/datatables/datatables.bundle.js' %}"></script> {% endcomment %}
 <script type="text/javascript" src="{% static 'js/riso/dynamic-formset.js' %}"></script>

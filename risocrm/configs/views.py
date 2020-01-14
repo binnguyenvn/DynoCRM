@@ -4,12 +4,10 @@
 """
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
 from django.shortcuts import redirect, render
 
 from risocrm.app_mgmt.helpers import field_both_name_tuple, module_label_tuple
-from risocrm.configs.forms import (ExternalConfigFS, FieldConfigFS,
-                                   ReportConfigFS)
+from risocrm.configs.forms import ExternalConfigFS, FieldConfigFS, ReportConfigFS
 from risocrm.configs.models import ExternalConfig, FieldConfig, ReportConfig
 
 
@@ -49,7 +47,7 @@ def external(request, pk):
             return render(request, 'configs-external.html', context)
         instances = formset.save(commit=False)
         for instance in instances:
-            if instance.id is None:
+            if instance.time_created is None:
                 instance.creator = request.user
             instance.save()
         messages.add_message(request, messages.SUCCESS, 'Update external config success')
@@ -92,7 +90,7 @@ def report(request, pk):
             return render(request, 'configs-report.html', context)
         instances = formset.save(commit=False)
         for instance in instances:
-            if instance.id is None:
+            if instance.time_created is None:
                 instance.creator = request.user
             instance.save()
         messages.add_message(request, messages.SUCCESS, 'Update report config success')
@@ -135,7 +133,7 @@ def field(request, pk):
             return render(request, 'configs-field.html', context)
         instances = formset.save(commit=False)
         for instance in instances:
-            if instance.id is None:
+            if instance.time_created is None:
                 instance.creator = request.user
             instance.save()
         messages.add_message(request, messages.SUCCESS, 'Update field config success')

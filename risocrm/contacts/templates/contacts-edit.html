@@ -8,10 +8,12 @@
 {% endblock toolbar %} {% block content %}
 
 <!--Begin:: Portlet-->
-<div class="kt-portlet kt-portlet--tabs">
+<form method="POST" action="." id="userform" enctype="multipart/form-data">
+{% csrf_token %}
+<div class="kt-portlet kt-portlet--tabs kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile">
   <div class="kt-portlet__head">
-    <div class="kt-portlet__head-toolbar">
-      <ul class="nav nav-tabs nav-tabs-space-lg nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-brand" role="tablist">
+    <div class="kt-portlet__head-label">
+        <ul class="nav nav-tabs nav-tabs-space-lg nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-brand" role="tablist">
       {% for form in forms %}
         {% if forloop.counter0 == 0 %}
         {% else %}
@@ -24,6 +26,20 @@
         {% endfor %}
       </ul>
     </div>
+    <div class="kt-portlet__head-toolbar">
+      <div class="kt-portlet__head-wrapper">
+        <div class="kt-portlet__head-actions">
+            &nbsp;
+            <button type="submit" class="btn btn-success">
+                <i class="la la-check" style="padding-right: 0px;"></i>
+            </button>
+            &nbsp;
+            <a href="{{go_back_url}}" class="btn btn-secondary">
+                <i class="la la-ban" style="padding-right: 0px;"></i>
+            </a>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="kt-portlet__body">
     <div class="tab-content  kt-margin-t-20">
@@ -35,7 +51,7 @@
         {% else %}
         <!--Begin:: Tab Content-->
         <div class="tab-pane {% if forloop.counter0 == 1 %}active {% endif %}" id="kt_contacts_view_tab_{{form.group|slugify}}" role="tabpanel">
-          <form class="kt-form kt-form--label-right" action="">
+          <div class="kt-form kt-form--label-right">
             <div class="kt-form__body">
               <div class="kt-section kt-section--first">
                 <div class="kt-section__body row">
@@ -50,17 +66,7 @@
                 </div>
               </div>
             </div>
-            <div class="kt-separator kt-separator--space-lg kt-separator--fit kt-separator--border-solid"></div>
-            <div class="kt-form__actions">
-              <div class="row">
-                <div class="col-xl-3"></div>
-                <div class="col-lg-9 col-xl-6">
-                  <a href="#" class="btn btn-brand btn-bold">Save changes</a>
-                  <a href="#" class="btn btn-clean btn-bold">Cancel</a>
-                </div>
-              </div>
-            </div>
-          </form>
+          </div>
         </div>
         <!--End:: Tab Content-->
         {% endif %}
@@ -68,9 +74,8 @@
     </div>
   </div>
 </div>
-
 <!--End:: Portlet-->
-
+</form>
 
 {% endblock content %} {% block javascript %}
 {% comment %}

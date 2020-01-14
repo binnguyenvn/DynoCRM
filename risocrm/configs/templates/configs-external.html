@@ -3,10 +3,9 @@
 {% block css %} {% endblock css %}
 {% block pagecss %}
 <link href="{% static 'plugins/custom/datatables/datatables.bundle.css' %}" rel="stylesheet" type="text/css" /> {% endblock pagecss %} {% block toolbar %} {% endblock toolbar %} {% block content %}
-<div class="kt-portlet kt-portlet--mobile">
 <form action="{{request.path}}" method="post" class="validated">
      {% csrf_token %}
-     
+  <div class="kt-portlet kt-portlet--mobile kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile">
     <div class="kt-portlet__head kt-portlet__head--lg">
         <div class="kt-portlet__head-label">
             <span class="kt-portlet__head-icon">
@@ -20,12 +19,12 @@
             <div class="kt-portlet__head-wrapper">
                 <div class="kt-portlet__head-actions">
                     &nbsp;
-                    <button type="submit" class="btn btn-brand btn-elevate btn-icon-sm">
-                        <i class="la la-plus"></i> Save & edit
+                    <button type="submit" class="btn btn-success">
+                        <i class="la la-check" style="padding-right: 0px;"></i>
                     </button>
                     &nbsp;
-                    <a href="{{go_back_url}}" class="btn btn-danger btn-elevate btn-icon-sm" style="color: white;">
-                        <i class="la la-trash"></i> Cancel
+                    <a href="{{go_back_url}}" class="btn btn-secondary">
+                        <i class="la la-ban" style="padding-right: 0px;"></i>
                     </a>
                 </div>
             </div>
@@ -126,9 +125,8 @@
 
         <!--end: Datatable -->
     </div>
-
+  </div>
 </form>
-</div>
 <!--begin::Modal-->
 
 {% endblock content %} {% block javascript %}

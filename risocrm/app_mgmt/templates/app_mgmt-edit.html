@@ -11,7 +11,7 @@
 {% endblock toolbar %} {% block content %}
 <form action="{{request.get_full_path}}" method="post" class="validated">
 	{% csrf_token %}
-	<div class="kt-portlet kt-portlet--mobile">
+	<div class="kt-portlet kt-portlet--mobile kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile">
 		<div class="kt-portlet__head kt-portlet__head--lg">
 			<div class="kt-portlet__head-label">
 				<span class="kt-portlet__head-icon">

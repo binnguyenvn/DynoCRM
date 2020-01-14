@@ -66,7 +66,7 @@ def create(request):
         'forms': DynoForm('Contact', Contact)
     }
 
-    return render(request, 'contacts-create.html', context)
+    return render(request, 'contacts-edit.html', context)
 
 
 @login_required
