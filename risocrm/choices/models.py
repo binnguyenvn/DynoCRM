@@ -23,3 +23,6 @@ class Choice(BaseModel):
 class ChoiceDetail(Model):
     choice = ForeignKey(Choice, related_name="choices_detail", on_delete=CASCADE)
     value = CharField(max_length=250)
+
+    def __str__(self):
+        return F"{self.value}"

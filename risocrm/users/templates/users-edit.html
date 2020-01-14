@@ -1,6 +1,8 @@
 {% extends 'users-base.html' %}
 {% load static %}
 {% block user_content %}
+<form method="POST" action="." id="userform" enctype="multipart/form-data">
+{% csrf_token %}
 <div class="row">
     <div class="col-xl-12">
         <div class="kt-portlet">
@@ -9,10 +11,23 @@
                     <h3 class="kt-portlet__head-title">Personal Information <small>update staff personal
                             informaiton</small></h3>
                 </div>
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-wrapper">
+                        <div class="kt-portlet__head-actions">
+                            &nbsp;
+                            <button type="submit" class="btn btn-success">
+                                <i class="la la-check" style="padding-right: 0px;"></i>
+                            </button>
+                            &nbsp;
+                            <button type="reset" class="btn btn-secondary">
+                                <i class="la la-refresh" style="padding-right: 0px;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <form class="kt-form kt-form--label-right" method="POST" action="." id="userform"
-                enctype="multipart/form-data">
-                {% csrf_token %}
+            <div class="kt-form kt-form--label-right" >
+                
                 <div class="kt-portlet__body">
                     <div class="kt-section kt-section--first">
                         <div class="kt-section__body validated">
@@ -77,26 +92,6 @@
                                     {% endfor %}
                                 </div>
                             </div>
-                            {% comment %} <div class="row">
-                                <label class="col-xl-3"></label>
-                                <div class="col-lg-9 col-xl-6">
-                                    <h3 class="kt-section__title kt-section__title-sm">Contact Info:</h3>
-                                </div>
-                            </div> {% endcomment %}
-                            {% comment %}
-                            <div class="form-group row">
-                                <label class="col-xl-3 col-lg-3 col-form-label">Contact Phone</label>
-                                <div class="col-lg-9 col-xl-6">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend"><span class="input-group-text"><i
-                                                    class="la la-phone"></i></span></div>
-                                        <input type="text" class="form-control" value="+35278953712" placeholder="Phone"
-                                            aria-describedby="basic-addon1">
-                                    </div>
-                                    <span class="form-text text-muted">We'll never share your email with anyone
-                                        else.</span>
-                                </div>
-                            </div> {% endcomment %}
                             <div class="form-group row d-none">
                                 <label class="col-xl-3 col-lg-3 col-form-label">Email Address</label>
                                 <div class="col-lg-9 col-xl-6">
@@ -109,16 +104,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {% comment %}
-                            <div class="form-group form-group-last row">
-                                <label class="col-xl-3 col-lg-3 col-form-label">Company Site</label>
-                                <div class="col-lg-9 col-xl-6">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Username" value="loop">
-                                        <div class="input-group-append"><span class="input-group-text">.com</span></div>
-                                    </div>
-                                </div>
-                            </div> {% endcomment %}
                             <div class="row">
                                 <label class="col-xl-3"></label>
                                 <div class="col-lg-9 col-xl-6">
@@ -146,22 +131,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="kt-portlet__foot">
-                    <div class="kt-form__actions">
-                        <div class="row">
-                            <div class="col-lg-3 col-xl-3">
-                            </div>
-                            <div class="col-lg-9 col-xl-9">
-                                <button type="submit" class="btn btn-success">Submit</button>&nbsp;
-                                <button type="reset" class="btn btn-secondary">Reset</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
+</form>
 {% endblock user_content %}
 {% block pagescript %}
 <script type="text/javascript" src="{% static 'js/riso/jquery.render.js' %}"></script>

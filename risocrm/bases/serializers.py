@@ -4,7 +4,7 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.files.storage import default_storage
-from rest_framework.serializers import CharField, FileField, ModelSerializer, Serializer
+from rest_framework.serializers import CharField, FileField, ModelSerializer, Serializer, DateTimeField
 
 User = get_user_model()
 
@@ -24,6 +24,8 @@ class BaseSerializer(ModelSerializer):
     """
     creator = UserNestedViewSerializer(read_only=True)
     last_modified_by = UserNestedViewSerializer(read_only=True)
+    time_created = DateTimeField(format="%d-%m-%Y %H:%M")
+    time_modified = DateTimeField(format="%d-%m-%Y %H:%M")
 
     def __init__(self, *args, **kwargs):
         # Instantiate the superclass normally

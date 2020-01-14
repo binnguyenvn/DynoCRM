@@ -36,9 +36,10 @@ def get_type(model, name):
         if related_model == 'choices':
             _field = Dynafield.objects.filter(module=model).filter(name=name).first()
             url = reverse(F'{related_model}:edit', kwargs={'pk': _field.option.id})
+            refresh_url = reverse(F'{_type.related_model.__module__.split(".")[1]}:choice_childs', kwargs={'pk': _field.option.id})
         else:
             url = reverse(F'{related_model}:create')
-        refresh_url = reverse(F'{_type.related_model.__module__.split(".")[1]}:create')
+            refresh_url = reverse(F'{_type.related_model.__module__.split(".")[1]}:create')
         return Select(attrs={'class': 'relation-field form-control kt-select2', 'fk':name, 'created': url, 'refresh': refresh_url})
 
     if _type.get_internal_type() in TWO_TYPE:

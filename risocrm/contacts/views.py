@@ -57,6 +57,7 @@ def view(request, pk):
 
 @login_required
 def create(request):
+    
     context = {
         'page_title': 'Contacts',
         'table_title': 'Create new Contact',
@@ -64,6 +65,7 @@ def create(request):
         'go_back_desc': 'Contacts list',
         'forms': DynoForm('Contact', Contact)
     }
+
     return render(request, 'contacts-create.html', context)
 
 
@@ -77,6 +79,10 @@ def edit(request, pk):
         'go_back_desc': 'Contacts list',
         'obj': obj,
     }
+    forms = DynoForm('Contact', Contact)
+    for form in forms:
+        form['form'] = form['form'](instance=obj)
+    context['forms'] = forms
     return render(request, 'contacts-edit.html', context)
 
 

@@ -78,13 +78,21 @@
             <div class="kt-portlet__head-wrapper">
                 <div class="kt-portlet__head-actions">
                     &nbsp;
-                    <a href="{% url 'contacts:create' %}" class="btn btn-brand btn-elevate btn-icon-sm">
-                        <i class="la la-plus"></i> New Contact
+                    <a href="{% url 'contacts:create' %}" class="btn btn-success" data-toggle="kt-tooltip" data-placement="left" data-original-title="Create new">
+                        <i class="la la-plus" style="padding-right: 0px;"></i>
                     </a>
                     &nbsp;
-                    <a data-toggle="modal" data-target="#m_delete_multi" class="btn btn-danger btn-elevate btn-icon-sm" style="color: white;">
-                        <i class="la la-trash"></i> Delete
-                    </a>
+                    <button data-toggle="modal" data-target="#m_delete_multi" class="btn btn-danger" style="color: white;">
+                        <i class="la la-trash" style="padding-right: 0px;" data-toggle="kt-tooltip" data-placement="left" data-original-title="Delete"></i>
+                    </button>
+                    &nbsp;
+                    <button class="btn btn-secondary" data-toggle="kt-tooltip" data-placement="left" data-original-title="Upload">
+                        <i class="la la-cloud-upload" style="padding-right: 0px;"></i>
+                    </button>
+                    &nbsp;
+                    <button class="btn btn-secondary"  data-toggle="kt-tooltip" data-placement="left" data-original-title="Download">
+                        <i class="la la-cloud-download" style="padding-right: 0px;"></i>
+                    </button>
                 </div>
             </div>
         </div>
