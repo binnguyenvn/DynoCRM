@@ -28,6 +28,14 @@ class NoteViewSet(ReadOnlyModelViewSet):
     ordering_fields = "__all__"
     ordering = ('-time_created')
 
+    def list(self, request, *args, **kwargs):
+        path = request.META.get('HTTP_REFERER', None) or '/'
+        content_type = contentype_from_url(path)
+        if content_type is None:
+            return JsonResponse({'data': 'Cannot find Model'}, status=400)
+        self.queryset = Note.objects.filter(content_type=content_type, object_id=path.split('/')[-1])
+        return super(NoteViewSet, self).list(request, *args, **kwargs)
+
 
 @login_required()
 def create(request):
@@ -38,10 +46,9 @@ def create(request):
     content_type = contentype_from_url(path)
     if content_type is None:
         return JsonResponse({'data': 'Cannot find Model'}, status=400)
-    id = path.split('/')[-1]
     Note.objects.create(
         content_type=content_type,
-        object_id=id,
+        object_id=path.split('/')[-1],
         type=request.POST.get('type'),
         note=note,
         creator=request.user

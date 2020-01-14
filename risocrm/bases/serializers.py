@@ -4,7 +4,7 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.files.storage import default_storage
-from rest_framework.serializers import CharField, FileField, ModelSerializer, Serializer, DateTimeField
+from rest_framework.serializers import CharField, DateTimeField, FileField, ModelSerializer, Serializer
 
 User = get_user_model()
 

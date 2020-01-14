@@ -8,7 +8,7 @@
 {% endblock toolbar %} {% block content %}
 
 <!--Begin:: Portlet-->
-<form method="POST" action="." id="userform" enctype="multipart/form-data">
+<form method="POST" action="{{request.path}}">
 {% csrf_token %}
 <div class="kt-portlet kt-portlet--tabs kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile">
   <div class="kt-portlet__head">

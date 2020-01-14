@@ -1,4 +1,4 @@
-function refreshField(name, url, which = 0) {
+function refreshField(name, url, which = 0, old = 0) {
     $.ajax({
         url: url,
         type: "GET",
@@ -11,6 +11,9 @@ function refreshField(name, url, which = 0) {
             if (which == 0) {
                 $('#id_' + name).val(results.data[0].id).change();
             }
+            if (old != 0) {
+                $('#id_' + name).val(old).change();
+            }
         }
     });
 }
@@ -21,7 +24,7 @@ $('.kt-select2').each(function(idx, el) {
         placeholder: "Select option"
     });
     if ($(this).is('[fk]')) {
-        refreshField($(this).attr('name'), $(this).attr('refresh'), 1);
+        refreshField($(this).attr('name'), $(this).attr('refresh'), 1, $(this).val());
     }
 });
 

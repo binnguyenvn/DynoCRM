@@ -62,7 +62,7 @@
 </div>
 
 <script id="noteScroll-scripting" >
-function notePull() {
+function notePull(pk) {
     $.ajax({
         url: "{% url 'notes:note-list' %}",
         type: "GET",
