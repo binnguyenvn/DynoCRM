@@ -36,3 +36,7 @@ facebookads
 
 # NOTIFICATION
 django-webpush
+
+
+# Execl
+openpyxl

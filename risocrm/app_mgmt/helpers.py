@@ -108,6 +108,15 @@ def field_both_name_tuple(module):
     return [(field.name, field.verbose_name) for field in fields if field.name in field_names]
 
 
+def field_verbose_name_list(module):
+    """
+        Get field name and verbose name of module and follow list field name
+    """
+    field_names = list(set(field_name_list(module)) ^ set(BASE_USER))
+    fields = field_list(module)
+    return {field.name:field.verbose_name for field in fields if field.name in field_names}
+
+
 def field_object(module):
     """
         Get field name and object of module

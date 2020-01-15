@@ -1,3 +1,16 @@
+function sentenceCase(str) {
+    if ((str === null) || (str === ''))
+        return false;
+    else
+        str = str.toString();
+
+    return str.replace(/\w\S*/g,
+        function(txt) {
+            return txt.charAt(0).toUpperCase() +
+                txt.substr(1).toLowerCase();
+        });
+}
+
 (function($, window, document, undefined) {
 
     "use strict";
@@ -94,7 +107,7 @@
             }
         },
 
-        setAutoColumns: function() {
+        setAutoColumns: function(kw) {
             var that = this;
             var options = that.tableOptions;
             options.columns.push({});
@@ -103,26 +116,28 @@
                     return k === n.data;
                 });
                 if (found.length === 0) {
-                    options.columns.push({ data: k, title: k });
+                    var title = (typeof kw[k] == 'undefined') ? sentenceCase(k) : kw[k];
+                    options.columns.push({ data: k, title: title });
                 }
             });
-
         },
 
         filterTable: function(url) {
             var that = this;
             var settings = that.settings;
             var options = that.tableOptions;
-
-            $.ajax(url + '&start=0&length=10').then(function(r) { // Initial Columns
-                var data = r.data;
-                that.dataSet = data;
-                that.setAutoColumns();
-                options.ajax = url;
-                options.processing = true;
-                options.serverSide = true;
-                settings.table.dataTable(options);
+            $.ajax('/settings/apps/api/get_field_label').then(function(res) {
+                $.ajax(url + '&start=0&length=10').then(function(r) { // Initial Columns
+                    var data = r.data;
+                    that.dataSet = data;
+                    that.setAutoColumns(res.data);
+                    options.ajax = url;
+                    options.processing = true;
+                    options.serverSide = true;
+                    settings.table.dataTable(options);
+                });
             });
+
         },
 
         getSelectedRow: function() {

@@ -86,13 +86,13 @@
                         <i class="la la-trash" style="padding-right: 0px;" data-toggle="kt-tooltip" data-placement="left" data-original-title="Delete"></i>
                     </button>
                     &nbsp;
-                    <button class="btn btn-secondary" data-toggle="kt-tooltip" data-placement="left" data-original-title="Upload">
+                    <a href="{% url 'contacts:import' %}" class="btn btn-secondary" data-toggle="kt-tooltip" data-placement="left" data-original-title="Upload">
                         <i class="la la-cloud-upload" style="padding-right: 0px;"></i>
-                    </button>
+                    </a>
                     &nbsp;
-                    <button class="btn btn-secondary"  data-toggle="kt-tooltip" data-placement="left" data-original-title="Download">
+                    <a href="{% url 'contacts:export' %}" class="btn btn-secondary"  data-toggle="kt-tooltip" data-placement="left" data-original-title="Download">
                         <i class="la la-cloud-download" style="padding-right: 0px;"></i>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>

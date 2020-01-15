@@ -1,17 +1,17 @@
 """
     Dynamic Form render
 """
-from django.forms import (CheckboxInput, DateInput, DateTimeInput, FileInput,
-                          NumberInput, Select, SelectMultiple, TextInput,
-                          TimeInput, modelform_factory)
+from django.forms import (CheckboxInput, DateInput, DateTimeInput, FileField,
+                          FileInput, Form, NumberInput, Select, SelectMultiple,
+                          TextInput, TimeInput, modelform_factory)
 from django.urls import reverse
 
 from risocrm.app_mgmt.helpers import (get_field_distinct_list,
                                       get_field_object,
                                       get_group_distinct_list)
+from risocrm.app_mgmt.models import Dynafield
 from risocrm.bases.global_variables import (BOOL_TYPE, FILE_TYPE, NUMBER_TYPE,
                                             STRING_TYPE)
-from risocrm.app_mgmt.models import Dynafield
 
 DATE_TYPE = ['DateField']
 DATETIME_TYPE = ['DateTimeField']
@@ -90,3 +90,7 @@ def DynoForm(model, module):
             }
         )
     return forms
+
+
+class ImportForm(Form):
+    file = FileField()

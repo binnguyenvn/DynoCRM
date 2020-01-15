@@ -5,11 +5,18 @@
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
-from risocrm.app_mgmt.helpers import (field_both_name_list, field_name_list,
-                                      field_type, get_foreign_module,
-                                      module_name_list, module_label_list)
+from risocrm.app_mgmt.helpers import (
+    contentype_from_url,
+    field_both_name_list,
+    field_name_list,
+    field_type,
+    field_verbose_name_list,
+    get_foreign_module,
+    module_label_list,
+    module_name_list,
+)
 from risocrm.bases.commands import *
-from risocrm.bases.global_variables import BASE_MODEL, BASE_USER, ADDED_APP
+from risocrm.bases.global_variables import ADDED_APP, BASE_MODEL, BASE_USER
 
 
 @login_required
@@ -73,6 +80,22 @@ def get_field_type(request):
         return JsonResponse({'data': field_type(model, field)}, status=200)
     except Exception:
         return JsonResponse({'data': 'try catch'}, status=400)
+
+
+@login_required
+def get_field_label(request):
+    """
+        Get list field of model
+        paramete ?model= & field name
+    """
+    path = request.META.get('HTTP_REFERER', None) or '/'
+    content_type = contentype_from_url(path)
+    if content_type is None:
+        return JsonResponse({'data': 'Cannot find Model'}, status=400)
+    try:
+        return JsonResponse({'data': field_verbose_name_list(content_type.model.title())}, status=200)
+    except Exception:
+        return JsonResponse({'data': content_type.model.title()}, status=400)
 
 
 def get_foreign_data(request):
