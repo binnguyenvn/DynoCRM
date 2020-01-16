@@ -27,7 +27,7 @@ class Contact(BaseModel):
     facebook = CharField(max_length=100, verbose_name="Facebook name", null=True, blank=True)
     facebook_url = CharField(max_length=200, verbose_name="Facebook url", null=True, blank=True)
     facebook_uid = CharField(max_length=200, verbose_name="Facebook UID", null=True, blank=True)
-    name = CharField(max_length=20, verbose_name="Name of contact", null=True, blank=True)
+    name = CharField(max_length=500, verbose_name="Name of contact", null=True, blank=True)
 
     def __str__(self):
-        return "Contact"
+        return F"Contact {self.name}"

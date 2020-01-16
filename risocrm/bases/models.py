@@ -16,17 +16,17 @@ class BaseModel(Model):
     time_created = DateTimeField(verbose_name="Created on", auto_now_add=True, null=True)
     time_modified = DateTimeField(verbose_name="Last modified on", auto_now=True, null=True)
     creator = ForeignKey(
-        'users.User',
+        "users.User",
         verbose_name="Created by",
-        related_name='%(app_label)s_%(class)s_creator',
+        related_name="%(app_label)s_%(class)s_creator",
         null=True,
         blank=True,
         on_delete=CASCADE
     )
     last_modified_by = ForeignKey(
-        'users.User',
+        "users.User",
         verbose_name="Last modified by",
-        related_name='%(app_label)s_%(class)s_last_modified',
+        related_name="%(app_label)s_%(class)s_last_modified",
         null=True,
         blank=True,
         on_delete=CASCADE
@@ -43,18 +43,40 @@ class BaseModel(Model):
         return super(BaseModel, self).save(*args, **kwargs)
 
 
-class SeoModel(BaseModel):
+class DynaModel(Model):
     """
-        Seo
+        Base
     """
-    seo_title = CharField(max_length=200)
-    seo_description = CharField(max_length=155)
-    seo_keywords = TextField()
-    image = CharField(max_length=500)
-
-    name = CharField(max_length=500, null=True, blank=True)
-    url = CharField(max_length=500, null=True, blank=True)
-    description = CharField(max_length=500, null=True, blank=True)
+    id = UUIDField(primary_key=True, default=uuid4, editable=False)
+    time_created = DateTimeField(verbose_name="Created on", auto_now_add=True, null=True)
+    time_modified = DateTimeField(verbose_name="Last modified on", auto_now=True, null=True)
+    creator = ForeignKey(
+        "users.User",
+        verbose_name="Created by",
+        related_name="%(app_label)s_%(class)s_creator",
+        null=True,
+        blank=True,
+        on_delete=CASCADE
+    )
+    last_modified_by = ForeignKey(
+        "users.User",
+        verbose_name="Last modified by",
+        related_name="%(app_label)s_%(class)s_last_modified",
+        null=True,
+        blank=True,
+        on_delete=CASCADE
+    )
+    name = CharField(max_length=500, verbose_name="Name of %(class)s", null=True, blank=True)
 
     class Meta:
         abstract = True
+
+    def save(self, *args, **kwargs):
+        if not self.time_created:
+            self.time_created = timezone.now()
+
+        self.time_modified = timezone.now()
+        return super(BaseModel, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return "%(class)s " + self.name

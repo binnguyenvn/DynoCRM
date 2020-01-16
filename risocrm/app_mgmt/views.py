@@ -69,14 +69,14 @@ def create(request):
     if request.method == 'GET':
         form = DynafieldForm()
         form.fields['group'].widget.choices = [('', '----------')] + get_group_distinct_tuple(model)
-        form.fields['module'].widget.choices = [('', '----------')] + module_name_tuple()
+        form.fields['module'].widget.choices = [('', '----------')] + app_name_tuple()
         form.fields['fkmodule'].widget.choices = [('', '----------')] + app_name_tuple()
         context['form'] = form
         return render(request, 'app_mgmt-edit.html', context)
     else:
         form = DynafieldForm(request.POST)
         form.fields['group'].widget.choices = [('', '----------')] + get_group_distinct_tuple(model)
-        form.fields['module'].widget.choices = [('', '----------')] + module_name_tuple()
+        form.fields['module'].widget.choices = [('', '----------')] + app_name_tuple()
         form.fields['fkmodule'].widget.choices = [('', '----------')] + app_name_tuple()
         if not form.is_valid():
             context['form'] = form
@@ -106,7 +106,7 @@ def edit(request, pk):
     if request.method == 'GET':
         form = DynafieldForm(instance=obj)
         form.fields['group'].widget.choices = [('', '----------')] + get_group_distinct_tuple()
-        form.fields['module'].widget.choices = [('', '----------')] + module_name_tuple()
+        form.fields['module'].widget.choices = [('', '----------')] + app_name_tuple()
         form.fields['fkmodule'].widget.choices = [('', '----------')] + app_name_tuple()
         if obj.option:
             form.fields['default'].widget.choices = [('', '----------')] + [(m.id, m.value)

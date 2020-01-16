@@ -10,7 +10,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
-from risocrm.app_mgmt.helpers import module_name_tuple
+from risocrm.bases.apps import app_name_tuple
 from risocrm.dashboard.forms import TileDetailFS, TileForm, TileFS
 from risocrm.dashboard.helpers import get_group_distinct_tuple
 from risocrm.dashboard.models import Tile
@@ -57,7 +57,7 @@ def create(request):
     if request.method == 'GET':
         form = TileForm()
         form.fields['dashboard'].widget.choices = [('', '----------')] + get_group_distinct_tuple()
-        form.fields['module'].widget.choices = [('', '----------')] + module_name_tuple()
+        form.fields['module'].widget.choices = [('', '----------')] + app_name_tuple()
         context['form'] = form
         context['formset'] = TileDetailFS(instance=_tile)
         return render(request, 'dashboard-edit.html', context)
@@ -65,7 +65,7 @@ def create(request):
         form = TileForm(request.POST)
         if not form.is_valid():
             form.fields['dashboard'].widget.choices = [('', '----------')] + get_group_distinct_tuple()
-            form.fields['module'].widget.choices = [('', '----------')] + module_name_tuple()
+            form.fields['module'].widget.choices = [('', '----------')] + app_name_tuple()
             context['form'] = form
             context['formset'] = TileDetailFS(request.POST, instance=_tile)
             context['msg_error'] = "Dashboard form have error, please check again!"
@@ -95,7 +95,7 @@ def edit(request, pk):
     if request.method == 'GET':
         form = TileForm(instance=tile_obj)
         form.fields['dashboard'].widget.choices = [('', '----------')] + get_group_distinct_tuple()
-        form.fields['module'].widget.choices = [('', '----------')] + module_name_tuple()
+        form.fields['module'].widget.choices = [('', '----------')] + app_name_tuple()
         context['form'] = form
         context['formset'] = TileDetailFS(instance=tile_obj)
         return render(request, 'dashboard-edit.html', context)
@@ -103,7 +103,7 @@ def edit(request, pk):
         form = TileForm(request.POST, instance=tile_obj)
         if not form.is_valid():
             form.fields['dashboard'].widget.choices = [('', '----------')] + get_group_distinct_tuple()
-            form.fields['module'].widget.choices = [('', '----------')] + module_name_tuple()
+            form.fields['module'].widget.choices = [('', '----------')] + app_name_tuple()
             context['form'] = form
             context['formset'] = TileDetailFS(request.POST, instance=tile_obj)
             context['msg_error'] = "Dashboard form have error, please check again!"
@@ -112,7 +112,7 @@ def edit(request, pk):
             formset = TileDetailFS(request.POST, instance=tile_obj)
             if not formset.is_valid():
                 form.fields['dashboard'].widget.choices = [('', '----------')] + get_group_distinct_tuple()
-                form.fields['module'].widget.choices = [('', '----------')] + module_name_tuple()
+                form.fields['module'].widget.choices = [('', '----------')] + app_name_tuple()
                 context['form'] = form
                 context['formset'] = TileDetailFS(request.POST, instance=tile_obj)
                 context['msg_error'] = "Dashboard formset have error, please check again!"

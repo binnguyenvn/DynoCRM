@@ -11,7 +11,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
-from risocrm.app_mgmt.helpers import module_name_tuple
+from risocrm.bases.apps import app_name_tuple
 from risocrm.bases.fields import app_field_name_tuple
 from risocrm.configs.models import FilterConfig
 from risocrm.filters.forms import FilterDetailFS, FilterForm
@@ -48,14 +48,14 @@ def create(request):
     _filter = Filter()
     if request.method == 'GET':
         form = FilterForm()
-        form.fields['module'].widget.choices = [('', '----------')] + module_name_tuple()
+        form.fields['module'].widget.choices = [('', '----------')] + app_name_tuple()
         context['form'] = form
         context['formset'] = FilterDetailFS(instance=_filter)
         return render(request, 'filters-edit.html', context)
     else:
         form = FilterForm(request.POST)
         if not form.is_valid():
-            form.fields['module'].widget.choices = [('', '----------')] + module_name_tuple()
+            form.fields['module'].widget.choices = [('', '----------')] + app_name_tuple()
             form.fields['order_by'].widget.choices = [('', '----------')] + app_field_name_tuple(form.data['module'])
             form.fields['field_list'].widget.choices = [('', '----------')] + app_field_name_tuple(form.data['module'])
             context['form'] = form
@@ -67,7 +67,7 @@ def create(request):
             formset = FilterDetailFS(request.POST, instance=filter)
             for _form in formset:
                 if not _form.is_valid():
-                    form.fields['module'].widget.choices = [('', '----------')] + module_name_tuple()
+                    form.fields['module'].widget.choices = [('', '----------')] + app_name_tuple()
                     form.fields['order_by'].widget.choices = [
                         ('', '----------')] + app_field_name_tuple(form.data['module'])
                     form.fields['field_list'].widget.choices = [
@@ -105,7 +105,7 @@ def edit(request, pk):
     }
     if request.method == 'GET':
         form = FilterForm(instance=filter_obj)
-        form.fields['module'].widget.choices = [('', '----------')] + module_name_tuple()
+        form.fields['module'].widget.choices = [('', '----------')] + app_name_tuple()
         form.fields['order_by'].widget.choices = [('', '----------')] + app_field_name_tuple(filter_obj.module)
         form.fields['field_list'].widget.choices = [('', '----------')] + app_field_name_tuple(filter_obj.module)
         context['form'] = form
