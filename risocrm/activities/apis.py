@@ -10,7 +10,7 @@ from url_filter.integrations.drf import DjangoFilterBackend
 
 from risocrm.activities.models import Activity
 from risocrm.activities.serializers import ActivityDepthSerializer
-from risocrm.app_mgmt.helpers import contentype_from_url
+from risocrm.bases.contenttype import contentype_from_url
 
 
 class ActivityViewSet(ReadOnlyModelViewSet):

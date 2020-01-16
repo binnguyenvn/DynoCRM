@@ -2,19 +2,25 @@
     App Model
     Dashboard
 """
-from django.db.models import (
-    CASCADE, BooleanField, CharField, DateTimeField, ForeignKey, ImageField,
-    Model, SmallIntegerField, TextField, UUIDField)
+from django.db.models import (CASCADE, BooleanField, CharField, DateTimeField,
+                              ForeignKey, ImageField, Model, SmallIntegerField,
+                              TextField, UUIDField)
 from django.utils import timezone
 
-from risocrm.bases.global_variables import CHART_CHOICES
 from risocrm.bases.models import BaseModel
-
 
 WIDTH_CHOICES = (
     ('6', 'Half'),
     ('12', 'Full'),
 
+)
+CHART_CHOICES = (
+    ('column', 'Column Chart'),
+    ('line', 'Line Chart'),
+    ('column-line', 'Column Line Chart'),
+    ('pie', 'Pie Chart'),
+    ('radar', 'Radar Chart'),
+    ('table', 'Table'),
 )
 
 

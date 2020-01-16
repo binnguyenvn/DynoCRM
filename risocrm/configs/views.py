@@ -6,8 +6,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
-from risocrm.app_mgmt.helpers import field_both_name_tuple, module_label_tuple
-from risocrm.configs.forms import ExternalConfigFS, FieldConfigFS, ReportConfigFS
+from risocrm.bases.apps import app_label_name_tuple
+from risocrm.bases.fields import app_field_name_vname_tuple
+from risocrm.configs.forms import (ExternalConfigFS, FieldConfigFS,
+                                   ReportConfigFS)
 from risocrm.configs.models import ExternalConfig, FieldConfig, ReportConfig
 
 
@@ -21,7 +23,7 @@ def external(request, pk):
         'go_back_desc': 'Back',
         'module': pk
     }
-    external = module_label_tuple()
+    external = app_label_name_tuple()
     if request.method == 'GET':
         formset = ExternalConfigFS(initial=[
             {
@@ -64,7 +66,7 @@ def report(request, pk):
         'go_back_desc': 'Back',
         'module': pk
     }
-    report = field_both_name_tuple(pk)
+    report = app_field_name_vname_tuple(pk)
     if request.method == 'GET':
         formset = ReportConfigFS(initial=[
             {
@@ -107,7 +109,7 @@ def field(request, pk):
         'go_back_desc': 'Back',
         'module': pk
     }
-    field = field_both_name_tuple(pk)
+    field = app_field_name_vname_tuple(pk)
     if request.method == 'GET':
         formset = FieldConfigFS(initial=[
             {

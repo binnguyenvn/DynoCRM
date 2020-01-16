@@ -2,11 +2,38 @@
     App Model
     App Management
 """
+from django.contrib.contenttypes.models import ContentType
 from django.db.models import (CASCADE, BooleanField, CharField, ForeignKey,
                               IntegerField, Model, TextField)
-from django.contrib.contenttypes.models import ContentType
-from risocrm.bases.global_variables import (FIELD_TYPE_CHOICES,
-                                            ON_DELETE_CHOICES)
+
+FIELD_TYPE_CHOICES = (
+    ('ForeignKey', 'ForeignKey'),
+    ('ManyToManyField', 'ManyToManyField'),
+    ('OneToOneField', 'OneToOneField'),
+    ('CharField', 'CharField'),
+    ('TextField', 'TextField'),
+    ('BooleanField', 'BooleanField'),
+    ('NullBooleanField', 'NullBooleanField'),
+    ('DateField', 'DateField'),
+    ('DateTimeField', 'DateTimeField'),
+    ('TimeField', 'TimeField'),
+    ('BigIntegerField', 'BigIntegerField'),
+    ('IntegerField', 'IntegerField'),
+    ('PositiveIntegerField', 'PositiveIntegerField'),
+    ('PositiveSmallIntegerField', 'PositiveSmallIntegerField'),
+    ('SmallIntegerField', 'SmallIntegerField'),
+    ('DecimalField', 'DecimalField'),
+    ('FloatField', 'FloatField'),
+    ('FileField', 'FileField'),
+    ('ImageField', 'ImageField'),
+)
+
+ON_DELETE_CHOICES = (
+    ('CASCADE', 'CASCADE'),
+    ('PROTECT', 'PROTECT'),
+    ('SET_NULL', 'SET_NULL'),
+    ('DO_NOTHING', 'DO_NOTHING')
+)
 
 
 class Dynafield(Model):

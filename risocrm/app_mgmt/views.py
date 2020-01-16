@@ -9,11 +9,10 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
 from risocrm.app_mgmt.forms import DynafieldForm
-from risocrm.app_mgmt.helpers import (get_group_distinct_tuple, model_render,
-                                      module_name_full_tuple, module_name_list,
-                                      module_name_tuple)
+from risocrm.app_mgmt.helpers import get_group_distinct_tuple, model_render
 from risocrm.app_mgmt.models import Dynafield
-from risocrm.bases.global_variables import ADDED_APP, BASE_MODEL
+from risocrm.bases.apps import app_name_tuple, app_name_list
+from risocrm.bases.variables import ADDED_APP, BASE_MODEL
 
 
 @login_required()
@@ -27,9 +26,9 @@ def index(request):
         'go_back_url': '',
         'go_back_desc': '',
     }
-    model_list = module_name_list()
+    model_list = app_name_list()
     # Remove Module of System
-    content['models'] = list(set(model_list) ^ set(BASE_MODEL+ ADDED_APP))
+    content['models'] = list(set(model_list) ^ set(BASE_MODEL + ADDED_APP))
 
     return render(request, 'app_mgmt-list.html', content)
 
@@ -71,14 +70,14 @@ def create(request):
         form = DynafieldForm()
         form.fields['group'].widget.choices = [('', '----------')] + get_group_distinct_tuple(model)
         form.fields['module'].widget.choices = [('', '----------')] + module_name_tuple()
-        form.fields['fkmodule'].widget.choices = [('', '----------')] + module_name_full_tuple()
+        form.fields['fkmodule'].widget.choices = [('', '----------')] + app_name_tuple()
         context['form'] = form
         return render(request, 'app_mgmt-edit.html', context)
     else:
         form = DynafieldForm(request.POST)
         form.fields['group'].widget.choices = [('', '----------')] + get_group_distinct_tuple(model)
         form.fields['module'].widget.choices = [('', '----------')] + module_name_tuple()
-        form.fields['fkmodule'].widget.choices = [('', '----------')] + module_name_full_tuple()
+        form.fields['fkmodule'].widget.choices = [('', '----------')] + app_name_tuple()
         if not form.is_valid():
             context['form'] = form
             context['msg_error'] = "Dynafield form have error, please check again!"
@@ -108,18 +107,20 @@ def edit(request, pk):
         form = DynafieldForm(instance=obj)
         form.fields['group'].widget.choices = [('', '----------')] + get_group_distinct_tuple()
         form.fields['module'].widget.choices = [('', '----------')] + module_name_tuple()
-        form.fields['fkmodule'].widget.choices = [('', '----------')] + module_name_full_tuple()
+        form.fields['fkmodule'].widget.choices = [('', '----------')] + app_name_tuple()
         if obj.option:
-            form.fields['default'].widget.choices = [('', '----------')] + [(m.id, m.value) for m in obj.option.choices_detail.all()]
+            form.fields['default'].widget.choices = [('', '----------')] + [(m.id, m.value)
+                                                                            for m in obj.option.choices_detail.all()]
         context['form'] = form
         return render(request, 'app_mgmt-edit.html', context)
     else:
         form = DynafieldForm(request.POST, instance=obj)
         form.fields['group'].widget.choices = [('', '----------')] + get_group_distinct_tuple()
-        form.fields['module'].widget.choices = [('', '----------')] + module_name_full_tuple()
-        form.fields['fkmodule'].widget.choices = [('', '----------')] + module_name_full_tuple()
+        form.fields['module'].widget.choices = [('', '----------')] + app_name_tuple()
+        form.fields['fkmodule'].widget.choices = [('', '----------')] + app_name_tuple()
         if obj.option:
-            form.fields['default'].widget.choices = [('', '----------')] + [(m.id, m.value) for m in obj.option.choices_detail.all()]
+            form.fields['default'].widget.choices = [('', '----------')] + [(m.id, m.value)
+                                                                            for m in obj.option.choices_detail.all()]
         if not form.is_valid():
             context['form'] = form
             return render(request, 'app_mgmt-edit.html', context)

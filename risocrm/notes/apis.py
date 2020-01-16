@@ -9,7 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ReadOnlyModelViewSet
 from url_filter.integrations.drf import DjangoFilterBackend
 
-from risocrm.app_mgmt.helpers import contentype_from_url
+from risocrm.bases.contenttype import contentype_from_url
 from risocrm.notes.models import Note
 from risocrm.notes.serializers import NoteDepthSerializer
 

@@ -2,11 +2,27 @@
     App Models
     Filter Models
 """
-from django.db.models import (BooleanField, CharField, ForeignKey, Model,
-                              TextField, CASCADE)
+from django.db.models import (CASCADE, BooleanField, CharField, ForeignKey,
+                              Model, TextField)
 
-from risocrm.bases.global_variables import OPERATOR_CHOICES
 from risocrm.bases.models import BaseModel
+
+OPERATOR_CHOICES = [
+    ('exact', 'Exact'),
+    ('iexact', 'Exact case-insensitive'),
+    ('contains', 'Contains'),
+    ('icontains', 'Contains case-insensitive'),
+    ('in', 'In'),
+    ('gt', 'Greater than'),
+    ('gte', 'Greater than equal'),
+    ('lt', 'Less than'),
+    ('lte', 'Less than equal'),
+    ('startswith', 'Start with'),
+    ('istartswith', 'Start with case-insensitive'),
+    ('endswith', 'End with'),
+    ('iendswith', 'End with case-insensitive'),
+    ('isnull', 'Is Null')
+]
 
 
 class Filter(BaseModel):
@@ -21,7 +37,6 @@ class Filter(BaseModel):
 
     def __str__(self):
         return F'Model {self.name}'
-        
 
 
 class FilterDetail(Model):

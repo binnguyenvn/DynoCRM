@@ -5,18 +5,14 @@
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
-from risocrm.app_mgmt.helpers import (
-    contentype_from_url,
-    field_both_name_list,
-    field_name_list,
-    field_type,
-    field_verbose_name_list,
-    get_foreign_module,
-    module_label_list,
-    module_name_list,
-)
+from risocrm.bases.contenttype import contentype_from_url
+from risocrm.bases.apps import app_label_name_list, app_name_list, app_get_foreign_module
 from risocrm.bases.commands import *
-from risocrm.bases.global_variables import ADDED_APP, BASE_MODEL, BASE_USER
+from risocrm.bases.fields import (app_field_name_list,
+                                  app_field_name_vname_exclue_base_dict,
+                                  app_filter_field_name_vname_list,
+                                  app_get_field_type)
+from risocrm.bases.variables import ADDED_APP, BASE_MODEL, BASE_USER
 
 
 @login_required
@@ -34,7 +30,7 @@ def get_module(request):
     """
         Get list model name which can use filter
     """
-    modules = module_name_list()
+    modules = app_name_list()
     modules = list(set(modules) ^ set(BASE_MODEL+ADDED_APP))
     return JsonResponse({'data': modules}, status=200)
 
@@ -44,7 +40,7 @@ def get_label(request):
     """
         Get list model name which can use filter
     """
-    return JsonResponse({'data': module_label_list()}, status=200)
+    return JsonResponse({'data': app_label_name_list()}, status=200)
 
 
 @login_required
@@ -59,8 +55,8 @@ def get_field(request):
 
     # get field list
     try:
-        field_names = list(set(field_name_list(model)) ^ set(BASE_USER))
-        return JsonResponse({'data': field_both_name_list(model, field_names)}, status=200)
+        field_names = list(set(app_field_name_list(model)) ^ set(BASE_USER))
+        return JsonResponse({'data': app_filter_field_name_vname_list(model, field_names)}, status=200)
     except Exception:
         return JsonResponse({'data': 'try catch'}, status=400)
 
@@ -77,7 +73,7 @@ def get_field_type(request):
         return JsonResponse({'data': 'missing'}, status=400)
 
     try:
-        return JsonResponse({'data': field_type(model, field)}, status=200)
+        return JsonResponse({'data': app_get_field_type(model, field)}, status=200)
     except Exception:
         return JsonResponse({'data': 'try catch'}, status=400)
 
@@ -93,7 +89,7 @@ def get_field_label(request):
     if content_type is None:
         return JsonResponse({'data': 'Cannot find Model'}, status=400)
     try:
-        return JsonResponse({'data': field_verbose_name_list(content_type.model.title())}, status=200)
+        return JsonResponse({'data': app_field_name_vname_exclue_base_dict(content_type.model.title())}, status=200)
     except Exception:
         return JsonResponse({'data': content_type.model.title()}, status=400)
 

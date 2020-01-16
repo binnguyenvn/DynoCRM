@@ -7,11 +7,19 @@ from django.db.models import (CASCADE, BooleanField, CharField, DateTimeField,
                               ForeignKey, Model)
 from django.utils import timezone
 
-from risocrm.bases.global_variables import NOTICE_CHOICES
 from risocrm.bases.models import BaseModel
 from webpush import send_user_notification
 
 User = get_user_model()
+
+NOTICE_CHOICES = (
+    ('flaticon2-gear', 'System'),
+    ('flaticon2-user', 'Customer'),
+    ('flaticon2-send', 'Email'),
+    ('flaticon2-calendar-1', 'Event'),
+    ('flaticon2-indent-dots', 'Task'),
+
+)
 
 
 class Notice(BaseModel):
@@ -32,6 +40,6 @@ class Notice(BaseModel):
 
     def save(self, *args, **kwargs):
         super(Notice, self).save(*args, **kwargs)
-        payload = {"head": "Notification from CRM", "body": self.content, "icon": "https://riso-media.s3.amazonaws.com/static/images/logo.svg", "url": self.url}
+        payload = {"head": "Notification from CRM", "body": self.content,
+                   "icon": "https://riso-media.s3.amazonaws.com/static/images/logo.svg", "url": self.url}
         send_user_notification(user=self.to_user, payload=payload, ttl=1000)
-

@@ -7,10 +7,10 @@ from django.forms import (CheckboxInput, DateInput, DateTimeInput, FileField,
 from django.urls import reverse
 
 from risocrm.app_mgmt.helpers import (get_field_distinct_list,
-                                      get_field_object,
                                       get_group_distinct_list)
+from risocrm.bases.fields import app_get_field_object
 from risocrm.app_mgmt.models import Dynafield
-from risocrm.bases.global_variables import (BOOL_TYPE, FILE_TYPE, NUMBER_TYPE,
+from risocrm.bases.variables import (BOOL_TYPE, FILE_TYPE, NUMBER_TYPE,
                                             STRING_TYPE)
 
 DATE_TYPE = ['DateField']
@@ -21,7 +21,7 @@ TWO_TYPE = ['ManyToManyField']
 
 
 def get_type(model, name):
-    _type = get_field_object(model, name)
+    _type = app_get_field_object(model, name)
     if _type.get_internal_type() in BOOL_TYPE:
         return CheckboxInput(attrs={'class': 'bool-field form-control'})
 

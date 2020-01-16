@@ -5,7 +5,7 @@
 from django.db.models import CASCADE, BooleanField, CharField, F, ForeignKey, Model, SmallIntegerField, TextField
 
 from risocrm.bases.models import BaseModel
-from risocrm.app_mgmt.helpers import get_field_object
+from risocrm.bases.fields import app_get_field_object
 
 class SystemConfig(BaseModel):
     """
@@ -61,7 +61,7 @@ class FieldConfig(BaseModel):
         return F"Field config for {self.module}: {self.field}"
 
     def object(self):
-        return get_field_object(self.module, self.field)
+        return app_get_field_object(self.module, self.field)
 
 
 class FilterConfig(BaseModel):
