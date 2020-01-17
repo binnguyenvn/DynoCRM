@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('time_created', models.DateTimeField(auto_now_add=True, null=True, verbose_name='Created on')),
                 ('time_modified', models.DateTimeField(auto_now=True, null=True, verbose_name='Last modified on')),
                 ('name', models.CharField(blank=True, max_length=200, null=True, verbose_name='Name of contact')),
-                ('email', models.CharField(blank=True, max_length=20, null=True, verbose_name='Email')),
+                ('email', models.CharField(blank=True, max_length=200, null=True, verbose_name='Email')),
                 ('phone', models.CharField(blank=True, max_length=20, null=True, verbose_name='Phone number')),
                 ('address', models.CharField(blank=True, max_length=1000, null=True, verbose_name='Address')),
                 ('facebook', models.CharField(blank=True, max_length=100, null=True, verbose_name='Facebook name')),

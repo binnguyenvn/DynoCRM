@@ -20,6 +20,7 @@ from risocrm.bases.variables import BASE_FIELD
 from risocrm.configs.models import ExternalConfig, FieldConfig, ReportConfig
 from risocrm.contacts.forms import ContactForm
 from risocrm.contacts.models import Contact
+from risocrm.contacts.tasks import import_contact
 from risocrm.filters.models import Filter
 
 User = get_user_model()
@@ -88,7 +89,10 @@ def create(request):
             context['msg_error'] = "Contact form have error, please check again!"
             return render(request, 'contacts-edit.html', context)
         else:
-            contact = real_form.save()
+            contact = real_form.save(commit=False)
+            contact.creator = request.user
+            contact.last_modified_by = request.user
+            contact.save()
             messages.add_message(request, messages.SUCCESS, F'Create contact {contact.name} success')
             return redirect('contacts:edit', contact.id)
 
@@ -120,7 +124,9 @@ def edit(request, pk):
             context['msg_error'] = "Contact form have error, please check again!"
             return render(request, 'contacts-edit.html', context)
         else:
-            contact = real_form.save()
+            contact = real_form.save(commit=False)
+            contact.last_modified_by = request.user
+            contact.save()
             messages.add_message(request, messages.SUCCESS, F'Update contact {obj.name} success')
             return redirect('contacts:edit', contact.id)
 
@@ -130,7 +136,7 @@ def delete(request):
     if request.method == 'POST':
         del_list = request.POST.get('idlist')
         if del_list is not None:
-            _del_list = [int(id) for id in del_list[:-1].split(',')]
+            _del_list = [id for id in del_list[:-1].split(',')]
             Contact.objects.filter(id__in=_del_list).delete()
     return redirect('contacts:list')
 
@@ -152,7 +158,7 @@ def importcontacts(request):
         file = request.FILES['file']
         file_name = default_storage.save(file.name, file)
         url = default_storage.url(file_name)
-
+        import_contact.delay(url, request.user)
         messages.add_message(request, messages.SUCCESS,
                              'Import contact is in progress, system will notice to you when its finish')
         return redirect('contacts:list')

@@ -19,7 +19,7 @@ function sentenceCase(str) {
             baseUrl: "",
             tableSelector: '',
             columnIndex: {
-                targets: 1,
+                targets: 0,
                 orderable: false,
                 render: function(data, type, full, meta) {
                     return `
@@ -31,7 +31,7 @@ function sentenceCase(str) {
                 },
             },
             columnAction: {
-                targets: 0,
+                targets: -1,
                 title: 'Actions',
                 orderable: false,
                 render: function(data, type, full, meta) {
@@ -72,7 +72,7 @@ function sentenceCase(str) {
                 },
                 responsive: true,
                 headerCallback: function(thead, data, start, end, display) {
-                    thead.getElementsByTagName('th')[1].innerHTML = `
+                    thead.getElementsByTagName('th')[0].innerHTML = `
                         <label class="kt-checkbox kt-checkbox--single kt-checkbox--solid">
                             <input type="checkbox" value="" class="kt-group-checkable">
                             <span></span>
@@ -110,7 +110,7 @@ function sentenceCase(str) {
         setAutoColumns: function(kw) {
             var that = this;
             var options = that.tableOptions;
-            options.columns.push({});
+
             $.each(that.dataSet[0], function(k, v) {
                 var found = $.grep(options.columns, function(n, i) {
                     return k === n.data;
@@ -120,6 +120,7 @@ function sentenceCase(str) {
                     options.columns.push({ data: k, title: title });
                 }
             });
+            options.columns.push({});
         },
 
         filterTable: function(url) {
@@ -148,7 +149,7 @@ function sentenceCase(str) {
                 var val = $(element).data('record');
                 ids += val + ',';
             });
-
+            $('#idlist').val(ids);
             return ids;
         }
     });

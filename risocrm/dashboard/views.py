@@ -131,6 +131,6 @@ def delete(request):
     if request.method == 'POST':
         del_list = request.POST.get('idlist')
         if del_list is not None:
-            _del_list = [int(id) for id in del_list[:-1].split(',')]
+            _del_list = [id for id in del_list[:-1].split(',')]
             Tile.objects.filter(id__in=_del_list).delete()
     return redirect('dashboard:list')

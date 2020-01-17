@@ -131,20 +131,17 @@
     var dynamicTable = table.risoDynamicTable({
         baseUrl: base_url,
         columnAction: {
-            targets: 0,
+            targets: -1,
             title: 'Actions',
             orderable: false,
             render: function(data, type, full, meta) {
                 return `
-                <span class="dropdown">
-                    <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                        <i class="la la-ellipsis-h"></i>
+                    <a class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View" href="` + view_url.replace('0', full.id) + `">
+                        <i class="la la-eye"></i>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-left">
-                        <a class="dropdown-item" href="` + view_url.replace('0', full.id) + `"><i class="la la-eye"></i> View Details</a>
-                        <a class="dropdown-item" href="` + edit_url.replace('0', full.id) + `"><i class="la la-edit"></i> Update</a>
-                    </div>
-                </span>
+                    <a class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View" href="` + edit_url.replace('0', full.id) + `">
+                        <i class="la la-edit"></i>
+                    </a>
             `;
             }
         }

@@ -18,7 +18,7 @@ def update_field_forward(apps, schema_editor):
         fkmodule="",
         on_delete="",
         default=None,
-        max_length=20,
+        max_length=200,
         group="Contact Infomation",
         option=None,
         is_base=True)
@@ -30,7 +30,7 @@ def update_field_forward(apps, schema_editor):
         fkmodule="",
         on_delete="",
         default=None,
-        max_length=20,
+        max_length=200,
         group="Contact Infomation",
         option=None,
         is_base=True)
@@ -42,7 +42,7 @@ def update_field_forward(apps, schema_editor):
         fkmodule="",
         on_delete="",
         default=None,
-        max_length=20,
+        max_length=200,
         group="Contact Infomation",
         option=None,
         is_base=True)
@@ -138,7 +138,7 @@ def update_field_forward(apps, schema_editor):
         fkmodule="",
         on_delete="",
         default=None,
-        max_length=200,
+        max_length=2000,
         group="Facebook Infomation",
         option=None,
         is_base=True)
@@ -150,7 +150,7 @@ def update_field_forward(apps, schema_editor):
         fkmodule="",
         on_delete="",
         default=None,
-        max_length=200,
+        max_length=2000,
         group="Facebook Infomation",
         option=None,
         is_base=True)
